@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# hgnc <img src='man/figures/logo.svg' align="right" height="139" />
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The [HUGO Gene Nomenclature Committee (HGNC)](https://www.genenames.org/) is a committee of the Human Genome
+Organisation (HUGO) that sets the standards for human gene nomenclature.
+
+The HGNC approves a unique and meaningful name for every known human gene, based
+on a group of experts.
+
+The goal of `{hgnc}` is to easily download and import HGNC gene data into R.
+
+## Installation
+
+You can install the development version of `{hgnc}` like so:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("maialab/hgnc")
+```
+
+## Usage
+
+To import the latest HGNC data set in tabular format directly into memory as
+a tibble do as follows:
+
+```{r}
+library(hgnc)
+
+# Date of HGNC last update
+last_update()
+
+# Direct URL to the latest archive
+(url <- latest_archive_url())
+
+# Import the data set in tidy tabular format
+# NB: Multiple-value columns are kept as list-columns
+hgnc_dataset <- import_hgnc_dataset_tsv(url)
+
+dplyr::glimpse(hgnc_dataset)
+```
+
+If you prefer to download the data set as a file to disk first, you can use
+`download_archive()`.
+
+The original data set does not contain the column `hgnc_id2`, which is added as
+a convenience by `{hgnc}`; this is because although the HGNC identifiers should
+formally contain the prefix `"HGNC:"`, it is often found elsewhere that they are
+stripped of this prefix, so the column `hgnc_id2` is also provided whose values
+only contain the integer part.

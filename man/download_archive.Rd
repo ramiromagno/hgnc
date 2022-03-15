@@ -24,5 +24,5 @@ default, this is inferred from the last part of the URL.}
 \item{...}{Additional arguments passed on to \code{\link[=download.file]{download.file()}}.}
 }
 \description{
-Download the latest HGNC approved dataset.
+Download the latest HGNC approved data set.
 }

@@ -1,6 +1,6 @@
 #' Download HGNC dataset
 #'
-#' Download the latest HGNC approved dataset.
+#' Download the latest HGNC approved data set.
 #'
 #' @param url A character string naming the URL of the HGNC dataset. It defaults
 #'   to the latest available archive.

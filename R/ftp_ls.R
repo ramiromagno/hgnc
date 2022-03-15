@@ -15,7 +15,7 @@ ftp_ls <- function(url) {
     dplyr::mutate(date = lubridate::dmy(.data$date),
                   time = lubridate::hm(.data$time)) %>%
     dplyr::mutate(dataset = stringr::str_remove(.data$file, '[-_]\\d{4}-\\d{2}-\\d{2}\\.\\w+$'), .before = 1L) %>%
-    dplyr::mutate(url = rvest::url_absolute(x = .data$file, base = .data$url))
+    dplyr::mutate(url = rvest::url_absolute(x = .data$file, base = url))
 
   return(tbl)
 

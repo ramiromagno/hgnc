@@ -264,7 +264,7 @@ hgnc_dataset %>%
 #> 1 HGNC:11998 11998    TP53   tumor protein p53
 ```
 
-## Citing this work
+## Citing the HGNC
 
 To cite HGNC nomenclature resources use:
 

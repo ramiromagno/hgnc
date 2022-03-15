@@ -144,7 +144,7 @@ hgnc_dataset %>%
   dplyr::select(1:4)
 ```
 
-## Citing this work
+## Citing the HGNC
 
 To cite HGNC nomenclature resources use:
 

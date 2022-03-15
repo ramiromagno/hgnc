@@ -2,9 +2,11 @@
 
 export("%>%")
 export(download_archive)
-export(import_hgnc_dataset_tsv)
+export(filter_by_keyword)
+export(import_hgnc_dataset)
 export(last_update)
 export(latest_archive_url)
+export(list_archives)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
 importFrom(tibble,tibble)

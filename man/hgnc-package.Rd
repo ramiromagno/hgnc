@@ -4,7 +4,7 @@
 \name{hgnc-package}
 \alias{hgnc}
 \alias{hgnc-package}
-\title{hgnc: Download and Import HUGO Gene Nomenclature Committee (HGNC) data into R}
+\title{hgnc: Download and Import HUGO Gene Nomenclature Committee ('HGNC') Data into R}
 \description{
 A set of routines to quickly download and import HUGO Gene data into R.
 }

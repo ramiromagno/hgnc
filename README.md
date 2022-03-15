@@ -27,6 +27,8 @@ remotes::install_github("maialab/hgnc")
 
 ## Usage
 
+### Basic usage
+
 To import the latest HGNC data set in tabular format directly into
 memory as a tibble do as follows:
 
@@ -43,7 +45,7 @@ last_update()
 
 # Import the data set in tidy tabular format
 # NB: Multiple-value columns are kept as list-columns
-hgnc_dataset <- import_hgnc_dataset_tsv(url)
+hgnc_dataset <- import_hgnc_dataset(url)
 
 dplyr::glimpse(hgnc_dataset)
 #> Rows: 43,129
@@ -105,11 +107,177 @@ dplyr::glimpse(hgnc_dataset)
 #> $ gencc                    <chr> NA, NA, NA, "HGNC:7", NA, "HGNC:23336", NA, N…
 ```
 
-If you prefer to download the data set as a file to disk first, you can
-use `download_archive()`.
-
 The original data set does not contain the column `hgnc_id2`, which is
 added as a convenience by `{hgnc}`; this is because although the HGNC
 identifiers should formally contain the prefix `"HGNC:"`, it is often
 found elsewhere that they are stripped of this prefix, so the column
 `hgnc_id2` is also provided whose values only contain the integer part.
+
+``` r
+hgnc_dataset %>%
+  dplyr::select(c('hgnc_id', 'hgnc_id2'))
+#> # A tibble: 43,129 × 2
+#>    hgnc_id    hgnc_id2
+#>    <chr>      <chr>   
+#>  1 HGNC:5     5       
+#>  2 HGNC:37133 37133   
+#>  3 HGNC:24086 24086   
+#>  4 HGNC:7     7       
+#>  5 HGNC:27057 27057   
+#>  6 HGNC:23336 23336   
+#>  7 HGNC:41022 41022   
+#>  8 HGNC:41523 41523   
+#>  9 HGNC:8     8       
+#> 10 HGNC:30005 30005   
+#> # … with 43,119 more rows
+```
+
+### Downloading to disk
+
+If you prefer to download the data set as a file to disk first, you can
+use `download_archive()`. Then, you can use `import_hgnc_dataset()` to
+import the downloaded file into R.
+
+### Downloading other archives
+
+Besides the latest archive, the [HUGO Gene Nomenclature Committee
+(HGNC)](https://www.genenames.org/) website also provides monthly and
+quarterly updates. Use `list_archives()` to list the currently available
+for download archives. The column `url` contains the direct download
+link that you can pass to `import_hgnc_dataset()` to import the data
+into R.
+
+``` r
+list_archives()
+#> # A tibble: 45 × 8
+#>    series  dataset  file  datetime            date       time         size url  
+#>    <chr>   <chr>    <chr> <dttm>              <date>     <Period>    <int> <chr>
+#>  1 monthly hgnc_co… hgnc… 2021-03-01 09:30:00 2021-03-01 9H 30M 0S  1.52e7 http…
+#>  2 monthly hgnc_co… hgnc… 2021-04-01 05:09:00 2021-04-01 5H 9M 0S   1.52e7 http…
+#>  3 monthly hgnc_co… hgnc… 2021-05-01 05:32:00 2021-05-01 5H 32M 0S  1.52e7 http…
+#>  4 monthly hgnc_co… hgnc… 2021-06-01 05:03:00 2021-06-01 5H 3M 0S   1.59e7 http…
+#>  5 monthly hgnc_co… hgnc… 2021-07-01 05:12:00 2021-07-01 5H 12M 0S  1.59e7 http…
+#>  6 monthly hgnc_co… hgnc… 2021-08-01 04:30:00 2021-08-01 4H 30M 0S  1.59e7 http…
+#>  7 monthly hgnc_co… hgnc… 2021-09-01 04:59:00 2021-09-01 4H 59M 0S  1.59e7 http…
+#>  8 monthly hgnc_co… hgnc… 2021-10-01 05:10:00 2021-10-01 5H 10M 0S  1.60e7 http…
+#>  9 monthly hgnc_co… hgnc… 2021-11-01 14:07:00 2021-11-01 14H 7M 0S  1.60e7 http…
+#> 10 monthly hgnc_co… hgnc… 2022-01-10 17:28:00 2022-01-10 17H 28M 0S 1.61e7 http…
+#> # … with 35 more rows
+```
+
+## Motivation
+
+You could go to [www.genenames.org](https://www.genenames.org) and
+download the files yourself. So why the need for this R package?
+
+`{hgnc}` really is just a convenience package. The main advantage is
+that the function `import_hgnc_dataset()` reads in the data in tabular
+format with all the columns with the appropriate type (so you don’t have
+to specify it yourself). As an extra step, those variables that contain
+multiple values are encoded as list-columns.
+
+Remember that list-columns can be expanded with `tidyr::unnest()`. E.g.,
+`alias_symbol` is a list-column containing multiple alternative aliases
+to the standard `symbol`:
+
+``` r
+hgnc_dataset %>%
+  dplyr::filter(symbol == 'TP53') %>%
+  dplyr::select(c('symbol', 'alias_symbol'))
+#> # A tibble: 1 × 2
+#>   symbol alias_symbol
+#>   <chr>  <list>      
+#> 1 TP53   <chr [2]>
+
+hgnc_dataset %>%
+  dplyr::filter(symbol == 'TP53') %>%
+  dplyr::select(c('symbol', 'alias_symbol')) %>%
+  tidyr::unnest(cols = 'alias_symbol')
+#> # A tibble: 2 × 2
+#>   symbol alias_symbol
+#>   <chr>  <chr>       
+#> 1 TP53   p53         
+#> 2 TP53   LFS1
+```
+
+In addition, we also provide the function `filter_by_keyword()` that
+allows filtering the data set based on a keyword or regular expression.
+By default this function will look into all columns that contain gene
+symbols or names (`symbol`, `name`, `alias_symbol`, `alias_name`,
+`prev_symbol` and `prev_name`). It works automatically with list-columns
+too.
+
+Look for entries in the data set that contain the keyword `"TP53"`:
+
+``` r
+hgnc_dataset %>%
+  filter_by_keyword('TP53') %>%
+  dplyr::select(1:4)
+#> # A tibble: 47 × 4
+#>    hgnc_id    hgnc_id2 symbol     name                                          
+#>    <chr>      <chr>    <chr>      <chr>                                         
+#>  1 HGNC:49685 49685    ABHD15-AS1 ABHD15 antisense RNA 1                        
+#>  2 HGNC:20679 20679    ANO9       anoctamin 9                                   
+#>  3 HGNC:13276 13276    EI24       EI24 autophagy associated transmembrane prote…
+#>  4 HGNC:3345  3345     ENC1       ectodermal-neural cortex 1                    
+#>  5 HGNC:4136  4136     GAMT       guanidinoacetate N-methyltransferase          
+#>  6 HGNC:6568  6568     LGALS7     galectin 7                                    
+#>  7 HGNC:53222 53222    LINC02303  long intergenic non-protein coding RNA 2303   
+#>  8 HGNC:16841 16841    LITAF      lipopolysaccharide induced TNF factor         
+#>  9 HGNC:6762  6762     MAD1L1     mitotic arrest deficient 1 like 1             
+#> 10 HGNC:17637 17637    PERP       p53 apoptosis effector related to PMP22       
+#> # … with 37 more rows
+```
+
+Restrict the search to the `symbol` column:
+
+``` r
+hgnc_dataset %>%
+  filter_by_keyword('TP53', cols = 'symbol') %>%
+  dplyr::select(1:4)
+#> # A tibble: 23 × 4
+#>    hgnc_id    hgnc_id2 symbol    name                                           
+#>    <chr>      <chr>    <chr>     <chr>                                          
+#>  1 HGNC:11998 11998    TP53      tumor protein p53                              
+#>  2 HGNC:29984 29984    TP53AIP1  tumor protein p53 regulated apoptosis inducing…
+#>  3 HGNC:11999 11999    TP53BP1   tumor protein p53 binding protein 1            
+#>  4 HGNC:12000 12000    TP53BP2   tumor protein p53 binding protein 2            
+#>  5 HGNC:16328 16328    TP53BP2P1 tumor protein p53 binding protein 2 pseudogene…
+#>  6 HGNC:43652 43652    TP53COR1  tumor protein p53 pathway corepressor 1        
+#>  7 HGNC:19373 19373    TP53I3    tumor protein p53 inducible protein 3          
+#>  8 HGNC:16842 16842    TP53I11   tumor protein p53 inducible protein 11         
+#>  9 HGNC:25102 25102    TP53I13   tumor protein p53 inducible protein 13         
+#> 10 HGNC:18022 18022    TP53INP1  tumor protein p53 inducible nuclear protein 1  
+#> # … with 13 more rows
+```
+
+Search for the whole word `"TP53"` exactly by taking advantage of
+regular expressions:
+
+``` r
+hgnc_dataset %>%
+  filter_by_keyword('^TP53$', cols = 'symbol') %>%
+  dplyr::select(1:4)
+#> # A tibble: 1 × 4
+#>   hgnc_id    hgnc_id2 symbol name             
+#>   <chr>      <chr>    <chr>  <chr>            
+#> 1 HGNC:11998 11998    TP53   tumor protein p53
+```
+
+## Citing this work
+
+To cite HGNC nomenclature resources use:
+
+-   Tweedie S, Braschi B, Gray KA, Jones TEM, Seal RL, Yates B, Bruford
+    EA. *Genenames.org: the HGNC and VGNC resources in 2021.* Nucleic
+    Acids Res. 49, D939–D946 (2021). doi:
+    [10.1093/nar/gkaa980](https://doi.org/10.1093/nar/gkaa980)
+
+To cite data within the database use the following format:
+
+-   HGNC Database, HUGO Gene Nomenclature Committee (HGNC), European
+    Molecular Biology Laboratory, European Bioinformatics Institute
+    (EMBL-EBI), Wellcome Genome Campus, Hinxton, Cambridge CB10 1SD,
+    United Kingdom www.genenames.org.
+
+Please include the month and year you retrieved the data cited.

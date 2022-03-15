@@ -18,8 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The [HUGO Gene Nomenclature Committee (HGNC)](https://www.genenames.org/) is a committee of the Human Genome
-Organisation (HUGO) that sets the standards for human gene nomenclature.
+The [HUGO Gene Nomenclature Committee (HGNC)](https://www.genenames.org/) is a
+committee of the Human Genome Organisation (HUGO) that sets the standards for
+human gene nomenclature.
 
 The HGNC approves a unique and meaningful name for every known human gene, based
 on a group of experts.
@@ -37,6 +38,8 @@ remotes::install_github("maialab/hgnc")
 
 ## Usage
 
+### Basic usage
+
 To import the latest HGNC data set in tabular format directly into memory as
 a tibble do as follows:
 
@@ -51,16 +54,104 @@ last_update()
 
 # Import the data set in tidy tabular format
 # NB: Multiple-value columns are kept as list-columns
-hgnc_dataset <- import_hgnc_dataset_tsv(url)
+hgnc_dataset <- import_hgnc_dataset(url)
 
 dplyr::glimpse(hgnc_dataset)
 ```
-
-If you prefer to download the data set as a file to disk first, you can use
-`download_archive()`.
 
 The original data set does not contain the column `hgnc_id2`, which is added as
 a convenience by `{hgnc}`; this is because although the HGNC identifiers should
 formally contain the prefix `"HGNC:"`, it is often found elsewhere that they are
 stripped of this prefix, so the column `hgnc_id2` is also provided whose values
 only contain the integer part.
+
+```{r}
+hgnc_dataset %>%
+  dplyr::select(c('hgnc_id', 'hgnc_id2'))
+```
+
+### Downloading to disk
+
+If you prefer to download the data set as a file to disk first, you can use
+`download_archive()`. Then, you can use `import_hgnc_dataset()` to import
+the downloaded file into R.
+
+### Downloading other archives
+
+Besides the latest archive, the [HUGO Gene Nomenclature Committee
+(HGNC)](https://www.genenames.org/) website also provides monthly and quarterly
+updates. Use `list_archives()` to list the currently available for download
+archives. The column `url` contains the direct download link that you can pass
+to `import_hgnc_dataset()` to import the data into R.
+
+```{r}
+list_archives()
+```
+
+## Motivation
+
+You could go to [www.genenames.org](https://www.genenames.org) and download the
+files yourself. So why the need for this R package?
+
+`{hgnc}` really is just a convenience package. The main advantage is that the
+function `import_hgnc_dataset()` reads in the data in tabular format with
+all the columns with the appropriate type (so you don't have to specify it
+yourself). As an extra step, those variables that contain multiple values are
+encoded as list-columns.
+
+Remember that list-columns can be expanded with `tidyr::unnest()`. E.g.,
+`alias_symbol` is a list-column containing multiple alternative aliases to the
+standard `symbol`:
+
+```{r}
+hgnc_dataset %>%
+  dplyr::filter(symbol == 'TP53') %>%
+  dplyr::select(c('symbol', 'alias_symbol'))
+
+hgnc_dataset %>%
+  dplyr::filter(symbol == 'TP53') %>%
+  dplyr::select(c('symbol', 'alias_symbol')) %>%
+  tidyr::unnest(cols = 'alias_symbol')
+```
+
+In addition, we also provide the function `filter_by_keyword()` that allows
+filtering the data set based on a keyword or regular expression. By default this
+function will look into all columns that contain gene symbols or names
+(`symbol`, `name`, `alias_symbol`, `alias_name`, `prev_symbol` and `prev_name`).
+It works automatically with list-columns too.
+
+Look for entries in the data set that contain the keyword `"TP53"`:
+
+```{r}
+hgnc_dataset %>%
+  filter_by_keyword('TP53') %>%
+  dplyr::select(1:4)
+```
+
+Restrict the search to the `symbol` column:
+
+```{r}
+hgnc_dataset %>%
+  filter_by_keyword('TP53', cols = 'symbol') %>%
+  dplyr::select(1:4)
+```
+
+Search for the whole word `"TP53"` exactly by taking advantage of regular expressions:
+
+```{r}
+hgnc_dataset %>%
+  filter_by_keyword('^TP53$', cols = 'symbol') %>%
+  dplyr::select(1:4)
+```
+
+## Citing this work
+
+To cite HGNC nomenclature resources use:
+
+- Tweedie S, Braschi B, Gray KA, Jones TEM, Seal RL, Yates B, Bruford EA. _Genenames.org: the HGNC and VGNC resources in 2021._ Nucleic Acids Res. 49, D939--D946 (2021). doi: [10.1093/nar/gkaa980](https://doi.org/10.1093/nar/gkaa980)
+
+To cite data within the database use the following format:
+ 
+- HGNC Database, HUGO Gene Nomenclature Committee (HGNC), European Molecular Biology Laboratory, European Bioinformatics Institute (EMBL-EBI), Wellcome Genome Campus, Hinxton, Cambridge CB10 1SD, United Kingdom www.genenames.org. 
+
+Please include the month and year you retrieved the data cited.

@@ -11,7 +11,7 @@
 #' @md
 #' @importFrom rlang .data
 #' @export
-import_hgnc_dataset_tsv <- function(file, ...) {
+import_hgnc_dataset <- function(file = latest_archive_url(), ...) {
 
   col_types <- list(
     hgnc_id = readr::col_character(),

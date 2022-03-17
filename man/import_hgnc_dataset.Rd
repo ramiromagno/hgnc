@@ -2,19 +2,126 @@
 % Please edit documentation in R/import_hgnc_dataset.R
 \name{import_hgnc_dataset}
 \alias{import_hgnc_dataset}
-\title{Import HGNC data set}
+\title{Import HGNC data}
 \usage{
 import_hgnc_dataset(file = latest_archive_url(), ...)
 }
 \arguments{
 \item{file}{A file or URL of the  complete HGNC data set (in TSV format).}
 
-\item{...}{Additional arguments to be passed to \code{\link[readr:read_delim]{readr::read_tsv()}}.}
+\item{...}{Additional arguments to be passed on to \code{\link[readr:read_delim]{readr::read_tsv()}}.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} of the HGNC data set.
+A \link[tibble:tibble-package]{tibble} of the HGNC data set consisting of
+55 columns:
+\describe{
+\item{\code{hgnc_id}}{A unique ID provided by the HGNC for each gene with an approved symbol. IDs are of the format HGNC:n, where n is a unique number. HGNC IDs remain stable even if a name or symbol changes.}
+\item{\code{hgnc_id2}}{A stripped down version of \code{hgnc_id} where the prefix \code{"HGNC:"} has been removed (this column is added by the package \code{{hgnc}}).}
+\item{\code{symbol}}{The official gene symbol approved by the HGNC, which is typically a short form of the gene name. Symbols are approved in accordance with the Guidelines for Human Gene Nomenclature.}
+\item{\code{name}}{The full gene name approved by the HGNC; corresponds to the approved symbol above.}
+\item{\code{locus_group}}{A group name for a set of related locus types as defined by the HGNC. One of: \code{"protein-coding gene"}, \code{"non-coding RNA"}, \code{"pseudogene"} or \code{"other"}.}
+\item{\code{locus_type}}{Specifies the genetic class of each gene entry:
+\describe{
+\item{\code{"gene with protein product"}}{Protein-coding genes (the protein
+may be predicted and of unknown function),
+\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001217}{SO:0001217}.}
+\item{\code{"RNA, cluster"}}{Region containing a cluster of small non-coding RNA genes.}
+\item{\code{"RNA, long non-coding"}}{Non-protein coding genes that encode long
+non-coding RNAs (lncRNAs)
+\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001877}{SO:0001877};
+these are at least 200 nt in length. Subtypes include intergenic
+\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001463}{SO:0001463},
+intronic
+\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001903}{SO:0001903}
+and antisense
+\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001904}{SO:0001904}.}
+\item{\code{"RNA, micro"}}{Non-protein coding genes that encode microRNAs (miRNAs), \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001265}{SO:0001265}.}
+\item{\code{"RNA, ribosomal"}}{Non-protein coding genes that encode ribosomal RNAs (rRNAs), \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001637}{SO:0001637}.}
+\item{\code{"RNA, small nuclear"}}{Non-protein coding genes that encode small nuclear RNAs (snRNAs), \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001268}{SO:0001268}.}
+\item{\code{"RNA, small nucleolar"}}{Non-protein coding genes that encode small nucleolar RNAs (snoRNAs) containing C/D or H/ACA box domains, \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001267}{SO:0001267}.}
+\item{\code{"RNA, small cytoplasmic"}}{Non-protein coding genes that encode small cytoplasmic RNAs (scRNAs), \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001266}{SO:0001266}.}
+\item{\code{"RNA, transfer"}}{Non-protein coding genes that encode transfer RNAs (tRNAs), \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001272}{SO:0001272}.}
+\item{\code{"RNA, small misc"}}{Non-protein coding genes that encode miscellaneous types of small ncRNAs, such as vault (\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000404}{SO:0000404}) and Y (\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000405}{SO:0000405}) RNA genes.}
+\item{\code{"phenotype only"}}{Mapped phenotypes where the causative gene has not been identified, \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0001500}{SO:0001500}.}
+\item{\code{"pseudogene"}}{Genomic DNA sequences that are similar to protein-coding genes but do not encode a functional protein, \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000336}{SO:0000336}.}
+\item{\code{"complex locus constituent"}}{Transcriptional unit that is part of a named complex locus.}
+\item{\code{"endogenous retrovirus"}}{Integrated retroviral elements that are transmitted through the germline, \href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000100}{SO:0000100}.}
+\item{\code{"fragile site"}}{A heritable locus on a chromosome that is prone to DNA breakage.}
+\item{\code{"immunoglobulin gene"}}{Gene segments that undergo somatic recombination to form heavy or light chain immunoglobulin genes (SO:0000460). Also includes immunoglobulin gene segments with open reading frames that either cannot undergo somatic recombination, or encode a peptide that is not predicted to fold correctly; these are identified by inclusion of the term "non-functional" in the gene name.}
+\item{\code{"immunoglobulin pseudogene"}}{Immunoglobulin gene segments that are inactivated due to frameshift mutations and/or stop codons in the open reading frame.}
+\item{\code{"protocadherin"}}{Gene segments that constitute the three clustered protocadherins (alpha, beta and gamma)}
+\item{\code{"readthrough"}}{A naturally occurring transcript containing coding sequence from two or more genes that can also be transcribed individually.}
+\item{\code{"region"}}{Extents of genomic sequence that contain one or more genes, also applied to non-gene areas that do not fall into other types.}
+\item{\code{"T cell receptor gene"}}{Gene segments that undergo somatic recombination to form either alpha, beta, gamma or delta chain T cell receptor genes (\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000460}{SO:0000460}). Also includes T cell receptor gene segments with open reading frames that either cannot undergo somatic recombination, or encode a peptide that is not predicted to fold correctly; these are identified by inclusion of the term "non-functional" in the gene name.}
+\item{\code{"T cell receptor pseudogene"}}{T cell receptor gene segments that are inactivated due to frameshift mutations and/or stop codons in the open reading frame.}
+\item{\code{"transposable element"}}{A segment of repetitive DNA that can move, or retrotranspose, to new sites within the genome (\href{http://www.sequenceontology.org/browser/current_svn/term/SO:0000101}{SO:0000101}).}
+\item{\code{"unknown"}}{Entries where the locus type is currently unknown.}
+\item{\code{"virus integration site"}}{Target sequence for the integration of viral DNA into the genome.}
+}
+}
+\item{\code{status}}{Status of the symbol report, which can be either \code{"Approved"} or \code{"Entry Withdrawn"}.}
+\item{\code{location}}{Chromosomal location. Indicates the cytogenetic location of
+the gene or region on the chromsome, e.g. \code{"19q13.43"}. In the absence of
+that information one of the following may be listed:
+\describe{
+\item{\code{"not on reference assembly"}}{Named gene is not annotated on the current version of the Genome Reference Consortium human reference assembly; may have been annotated on previous assembly versions or on a non-reference human assembly.}
+\item{\code{"unplaced"}}{Named gene is annotated on an unplaced/unlocalized scaffold of the human reference assembly.}
+\item{\code{"reserved"}}{Named gene has never been annotated on any human assembly.}
+}
+}
+\item{\code{location_sortable}}{A sortable version of the \code{location} column (see above).}
+\item{\code{alias_symbol}}{Alternative symbols that have been used to refer to the gene. Aliases may be from literature, from other databases or may be added to represent membership of a gene group.}
+\item{\code{alias_name}}{Alternative names for the gene. Aliases may be from literature, from other databases or may be added to represent membership of a gene group.}
+\item{\code{prev_symbol}}{This field displays any symbols that were previously HGNC-approved nomenclature.}
+\item{\code{prev_name}}{This field displays any names that were previously HGNC-approved nomenclature.}
+\item{\code{gene_group}}{A gene group. Each gene has been assigned to one or more groups, according to either sequence similarity or information from publications, specialist advisors for that group or other databases. Groups may be either structural or functional.}
+\item{\code{gene_group_id}}{Gene group identifier, an integer number. This column contains the gene group identifiers, see \code{gene_group} for the gene group name.}
+\item{\code{date_approved_reserved}}{The date the entry was first approved.}
+\item{\code{date_symbol_changed}}{The date the gene symbol was last changed.}
+\item{\code{date_name_changed}}{The date the gene name was last changed.}
+\item{\code{date_modified}}{Date the entry was last modified.}
+\item{\code{entrez_id}}{Entrez gene identifier.}
+\item{\code{ensembl_gene_id}}{Ensembl gene identifier.}
+\item{\code{vega_id}}{VEGA gene identifier.}
+\item{\code{ucsc_id}}{UCSC gene identifier.}
+\item{\code{ena}}{International Nucleotide Sequence Database Collaboration (GenBank, ENA and DDBJ) accession number(s).}
+\item{\code{refseq_accession}}{The Reference Sequence (RefSeq) identifier for that entry, provided by the NCBI.}
+\item{\code{ccds_id}}{Consensus CDS identifier.}
+\item{\code{uniprot_ids}}{UniProt protein accession.}
+\item{\code{pubmed_id}}{Pubmed and Europe Pubmed Central PMIDs.}
+\item{\code{mgd_id}}{Mouse genome informatics database identifier.}
+\item{\code{rgd_id}}{Rat genome database gene identifier.}
+\item{\code{lsdb}}{The name of the Locus Specific Mutation Database and URL for the gene.}
+\item{\code{cosmic}}{Symbol used within the Catalogue of somatic mutations in cancer for the gene.}
+\item{\code{omim_id}}{Online Mendelian Inheritance in Man (OMIM) identifier.}
+\item{\code{mirbase}}{miRBase identifier.}
+\item{\code{homeodb}}{Homeobox Database identifier.}
+\item{\code{snornabase}}{snoRNABase identifier.}
+\item{\code{bioparadigms_slc}}{Symbol used to link to the SLC tables database at bioparadigms.org for the gene.}
+\item{\code{orphanet}}{Orphanet identifier.}
+\item{\code{pseudogene.org}}{Pseudogene.org identifier.}
+\item{\code{horde_id}}{Symbol used within HORDE for the gene.}
+\item{\code{merops}}{Identifier used to link to the MEROPS peptidase database.}
+\item{\code{imgt}}{Symbol used within international ImMunoGeneTics information system.}
+\item{\code{iuphar}}{The objectId used to link to the IUPHAR/BPS Guide to PHARMACOLOGY database.}
+\item{\code{kznf_gene_catalog}}{Lawrence Livermore National Laboratory Human KZNF Gene Catalog (LLNL) identifier.}
+\item{\code{mamit-trnadb}}{Identifier to link to the Mamit-tRNA database.}
+\item{\code{cd}}{Symbol used within the Human Cell Differentiation Molecule database for the gene.}
+\item{\code{lncrnadb}}{lncRNA Database identifier.}
+\item{\code{enzyme_id}}{ENZYME EC accession number.}
+\item{\code{intermediate_filament_db}}{Identifier used to link to the Human Intermediate Filament Database.}
+\item{\code{rna_central_ids}}{Identifier in the RNAcentral, The non-coding RNA sequence database.}
+\item{\code{lncipedia}}{The LNCipedia identifier to which the gene belongs. This will only appear if the gene is a long non-coding RNA.}
+\item{\code{gtrnadb}}{The GtRNAdb identifier to which the gene belongs. This will only appear if the gene is a tRNA.}
+\item{\code{agr}}{The Alliance of Genomic Resources HGNC ID for the Human gene page within the resource.}
+\item{\code{mane_select}}{MANE Select nucleotide accession with version (i.e. NCBI RefSeq or Ensembl transcript ID and version).}
+\item{\code{gencc}}{Gene Curation Coalition (GenCC) Database identifier.}
+}
 }
 \description{
-This function imports into memory as a tibble, the complete HGNC data set
+This function imports into memory, as a tibble, the complete HGNC data set
 from a TSV file.
+}
+\examples{
+try(import_hgnc_dataset())
 }

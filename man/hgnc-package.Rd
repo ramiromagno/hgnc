@@ -8,6 +8,14 @@
 \description{
 A set of routines to quickly download and import HUGO Gene data into R.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/maialab/hgnc}
+  \item Report bugs at \url{https://github.com/maialab/hgnc/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Ramiro Magno \email{ramiro.magno@gmail.com} (\href{https://orcid.org/0000-0001-5226-3441}{ORCID})
 

@@ -11,10 +11,12 @@ The [HUGO Gene Nomenclature Committee
 Organisation (HUGO) that sets the standards for human gene nomenclature.
 
 The HGNC approves a unique and meaningful name for every known human
-gene, based on a group of experts.
+gene, based on a group of experts. In addition, the HGNC also provides
+the mapping between gene symbols to gene entries in other popular
+databases or resources: the HGNC complete gene set.
 
-The goal of `{hgnc}` is to easily download and import HGNC gene data
-into R.
+The goal of `{hgnc}` is to easily download and import the latest HGNC
+complete gene data set into R.
 
 ## Installation
 
@@ -29,7 +31,7 @@ remotes::install_github("maialab/hgnc")
 
 ### Basic usage
 
-To import the latest HGNC data set in tabular format directly into
+To import the latest HGNC gene data set in tabular format directly into
 memory as a tibble do as follows:
 
 ``` r
@@ -39,7 +41,7 @@ library(hgnc)
 last_update()
 #> [1] "2022-03-10 02:03:59 UTC"
 
-# Direct URL to the latest archive
+# Direct URL to the latest archive in TSV format
 (url <- latest_archive_url())
 #> [1] "http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt"
 

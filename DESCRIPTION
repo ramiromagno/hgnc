@@ -1,6 +1,6 @@
 Package: hgnc
 Type: Package
-Title: Download and Import HUGO Gene Nomenclature Committee ('HGNC') Data into R
+Title: Download and Import the HUGO Gene Nomenclature Committee ('HGNC') Data Set into R
 Version: 0.1.0
 Authors@R: c(
     person(given = "Ramiro", family = "Magno",
@@ -13,8 +13,9 @@ Authors@R: c(
     person("CINTESIS",
     role = c("cph", "fnd"))
     )
-Description: A set of routines to quickly download and import HUGO Gene data
-    into R.
+Description: A set of routines to quickly download and import HUGO data set on
+    mapping of gene symbols to gene entries in other popular databases or
+    resouces.
 License: MIT + file LICENSE
 URL: https://github.com/maialab/hgnc
 BugReports: https://github.com/maialab/hgnc/issues

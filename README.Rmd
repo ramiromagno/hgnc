@@ -30,6 +30,11 @@ complete gene set.
 The goal of `{hgnc}` is to easily download and import the latest HGNC complete
 gene data set into R.
 
+This data set provides a useful mapping of HGNC symbols to gene entries in other
+popular databases or resouces, such as, the Entrez gene identifier or the UCSC
+gene identifier, among many others. Check the documentation of the function
+`import_hgnc_dataset()` for a description of the several fields available.
+
 ## Installation
 
 You can install the development version of `{hgnc}` like so:
@@ -71,6 +76,27 @@ only contain the integer part.
 ```{r}
 hgnc_dataset %>%
   dplyr::select(c('hgnc_id', 'hgnc_id2'))
+```
+
+### Locus groups
+
+The HGNC defines a group name (`locus_group`) for a set of related locus types.
+Here's how you can quickly check how many gene entries there are per locus
+group.
+
+```{r}
+hgnc_dataset %>%
+  dplyr::count(locus_group, sort = TRUE)
+```
+
+`locus_type` provides a finer classification:
+
+```{r}
+hgnc_dataset %>%
+  dplyr::group_by(locus_group) %>%
+  dplyr::count(locus_type, sort = TRUE) %>%
+  dplyr::arrange(locus_group) %>%
+  print(n = Inf)
 ```
 
 ### Downloading to disk

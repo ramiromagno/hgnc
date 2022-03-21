@@ -18,6 +18,12 @@ databases or resources: the HGNC complete gene set.
 The goal of `{hgnc}` is to easily download and import the latest HGNC
 complete gene data set into R.
 
+This data set provides a useful mapping of HGNC symbols to gene entries
+in other popular databases or resouces, such as, the Entrez gene
+identifier or the UCSC gene identifier, among many others. Check the
+documentation of the function `import_hgnc_dataset()` for a description
+of the several fields available.
+
 ## Installation
 
 You can install the development version of `{hgnc}` like so:
@@ -132,6 +138,62 @@ hgnc_dataset %>%
 #>  9 HGNC:8     8       
 #> 10 HGNC:30005 30005   
 #> # … with 43,119 more rows
+```
+
+### Locus groups
+
+The HGNC defines a group name (`locus_group`) for a set of related locus
+types. Here’s how you can quickly check how many gene entries there are
+per locus group.
+
+``` r
+hgnc_dataset %>%
+  dplyr::count(locus_group, sort = TRUE)
+#> # A tibble: 4 × 2
+#>   locus_group             n
+#>   <chr>               <int>
+#> 1 protein-coding gene 19243
+#> 2 pseudogene          13990
+#> 3 non-coding RNA       8881
+#> 4 other                1015
+```
+
+`locus_type` provides a finer classification:
+
+``` r
+hgnc_dataset %>%
+  dplyr::group_by(locus_group) %>%
+  dplyr::count(locus_type, sort = TRUE) %>%
+  dplyr::arrange(locus_group) %>%
+  print(n = Inf)
+#> # A tibble: 24 × 3
+#> # Groups:   locus_group [4]
+#>    locus_group         locus_type                     n
+#>    <chr>               <chr>                      <int>
+#>  1 non-coding RNA      RNA, long non-coding        5543
+#>  2 non-coding RNA      RNA, micro                  1912
+#>  3 non-coding RNA      RNA, transfer                591
+#>  4 non-coding RNA      RNA, small nucleolar         568
+#>  5 non-coding RNA      RNA, cluster                 119
+#>  6 non-coding RNA      RNA, ribosomal                60
+#>  7 non-coding RNA      RNA, small nuclear            50
+#>  8 non-coding RNA      RNA, misc                     30
+#>  9 non-coding RNA      RNA, vault                     4
+#> 10 non-coding RNA      RNA, Y                         4
+#> 11 other               immunoglobulin gene          230
+#> 12 other               T cell receptor gene         206
+#> 13 other               readthrough                  139
+#> 14 other               fragile site                 116
+#> 15 other               endogenous retrovirus        109
+#> 16 other               unknown                      101
+#> 17 other               protocadherin                 39
+#> 18 other               region                        38
+#> 19 other               complex locus constituent     29
+#> 20 other               virus integration site         8
+#> 21 protein-coding gene gene with protein product  19243
+#> 22 pseudogene          pseudogene                 13750
+#> 23 pseudogene          immunoglobulin pseudogene    203
+#> 24 pseudogene          T cell receptor pseudogene    37
 ```
 
 ### Downloading to disk

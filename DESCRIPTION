@@ -13,9 +13,9 @@ Authors@R: c(
     person("CINTESIS",
     role = c("cph", "fnd"))
     )
-Description: A set of routines to quickly download and import the HGNC data set
-    on mapping of gene symbols to gene entries in other popular databases or
-    resouces.
+Description: A set of routines to quickly download and import the 'HGNC'
+    data set on mapping of gene symbols to gene entries in other popular
+    databases or resources.
 License: MIT + file LICENSE
 URL: https://github.com/maialab/hgnc
 BugReports: https://github.com/maialab/hgnc/issues
@@ -35,3 +35,6 @@ Imports:
     rvest,
     stringr,
     tibble
+Suggests: 
+    spelling
+Language: en-US

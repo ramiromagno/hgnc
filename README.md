@@ -4,6 +4,9 @@
 # hgnc <img src='man/figures/logo.svg' align="right" height="139" />
 
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/hgnc)](https://CRAN.R-project.org/package=hgnc)
 <!-- badges: end -->
 
 The [HUGO Gene Nomenclature Committee
@@ -25,6 +28,12 @@ documentation of the function `import_hgnc_dataset()` for a description
 of the several fields available.
 
 ## Installation
+
+Install `{hgnc}` from CRAN:
+
+``` r
+install.packages("hgnc")
+```
 
 You can install the development version of `{hgnc}` like so:
 

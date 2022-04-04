@@ -1,7 +1,7 @@
 Package: hgnc
 Type: Package
 Title: Download and Import the HUGO Gene Nomenclature Committee ('HGNC') Data Set into R
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(given = "Ramiro", family = "Magno",
       email = "ramiro.magno@gmail.com",

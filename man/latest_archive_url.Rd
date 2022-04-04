@@ -7,8 +7,15 @@
 latest_archive_url(type = c("tsv", "json"))
 }
 \arguments{
-\item{type}{The format of the archive: `"tsv"` or `"json"`.}
+\item{type}{The format of the archive: \code{"tsv"} or \code{"json"}.}
+}
+\value{
+A string with the latest HGNC archive URL.
 }
 \description{
 Latest HGNC archive URL
+}
+\examples{
+latest_archive_url()
+
 }

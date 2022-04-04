@@ -53,6 +53,13 @@ latest_archive <- function(type = c('tsv', 'json')) {
 #' Latest HGNC archive URL
 #'
 #' @param type The format of the archive: `"tsv"` or `"json"`.
+#'
+#' @return A string with the latest HGNC archive URL.
+#'
+#' @examples
+#' latest_archive_url()
+#'
+#' @md
 #' @export
 #' @importFrom rlang .data
 latest_archive_url <- function(type = c('tsv', 'json')) {

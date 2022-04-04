@@ -13,6 +13,30 @@
 #' @return A [tibble][tibble::tibble-package] of the HGNC data set filtered by
 #'   observations matching the `keyword`.
 #'
+#' @examples
+#' # Start by retrieving the HGNC data set
+#' hgnc_tbl <- import_hgnc_dataset()
+#'
+#' # Search for entries containing "TP53" in the HGNC data set
+#' hgnc_tbl %>%
+#'   filter_by_keyword('TP53') %>%
+#'   dplyr::select(1:4)
+#'
+#' # The same as above but restrict the search to the `symbol` column
+#' hgnc_tbl %>%
+#'   filter_by_keyword('TP53', cols = 'symbol') %>%
+#'   dplyr::select(1:4)
+#'
+#' # Match "TP53" exactly in the `symbol` column
+#' hgnc_tbl %>%
+#'   filter_by_keyword('^TP53$', cols = 'symbol') %>%
+#'   dplyr::select(1:4)
+#'
+#' # `filter_by_keyword()` is vectorised over `keyword`
+#' hgnc_tbl %>%
+#'   filter_by_keyword(c('^TP53$', '^PIK3CA$'), cols = 'symbol') %>%
+#'   dplyr::select(1:4)
+#'
 #' @md
 #' @export
 filter_by_keyword <-

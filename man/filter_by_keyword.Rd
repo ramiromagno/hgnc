@@ -28,3 +28,28 @@ containing gene names or symbols. By default, it will look up in \code{symbol},
 that this function in dive into list-columns and match return a hit result if
 at least one of the strings matches the \code{keyword}.
 }
+\examples{
+# Start by retrieving the HGNC data set
+hgnc_tbl <- import_hgnc_dataset()
+
+# Search for entries containing "TP53" in the HGNC data set
+hgnc_tbl \%>\%
+  filter_by_keyword('TP53') \%>\%
+  dplyr::select(1:4)
+
+# The same as above but restrict the search to the `symbol` column
+hgnc_tbl \%>\%
+  filter_by_keyword('TP53', cols = 'symbol') \%>\%
+  dplyr::select(1:4)
+
+# Match "TP53" exactly in the `symbol` column
+hgnc_tbl \%>\%
+  filter_by_keyword('^TP53$', cols = 'symbol') \%>\%
+  dplyr::select(1:4)
+
+# `filter_by_keyword()` is vectorised over `keyword`
+hgnc_tbl \%>\%
+  filter_by_keyword(c('^TP53$', '^PIK3CA$'), cols = 'symbol') \%>\%
+  dplyr::select(1:4)
+
+}

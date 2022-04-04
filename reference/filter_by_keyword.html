@@ -85,6 +85,70 @@ at least one of the strings matches the <code>keyword</code>.</p>
 observations matching the <code>keyword</code>.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Start by retrieving the HGNC data set</span></span>
+<span class="r-in"><span class="va">hgnc_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="import_hgnc_dataset.html">import_hgnc_dataset</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Search for entries containing "TP53" in the HGNC data set</span></span>
+<span class="r-in"><span class="va">hgnc_tbl</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">filter_by_keyword</span><span class="op">(</span><span class="st">'TP53'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 47 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    hgnc_id    hgnc_id2 symbol     name                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HGNC:49685 49685    ABHD15-AS1 ABHD15 antisense RNA 1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> HGNC:20679 20679    ANO9       anoctamin 9                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HGNC:13276 13276    EI24       EI24 autophagy associated transmembrane prote…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HGNC:3345  3345     ENC1       ectodermal-neural cortex 1                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HGNC:4136  4136     GAMT       guanidinoacetate N-methyltransferase          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> HGNC:6568  6568     LGALS7     galectin 7                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HGNC:53222 53222    LINC02303  long intergenic non-protein coding RNA 2303   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HGNC:16841 16841    LITAF      lipopolysaccharide induced TNF factor         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HGNC:6762  6762     MAD1L1     mitotic arrest deficient 1 like 1             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HGNC:17637 17637    PERP       p53 apoptosis effector related to PMP22       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 37 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># The same as above but restrict the search to the `symbol` column</span></span>
+<span class="r-in"><span class="va">hgnc_tbl</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">filter_by_keyword</span><span class="op">(</span><span class="st">'TP53'</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 23 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    hgnc_id    hgnc_id2 symbol    name                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HGNC:11998 11998    TP53      tumor protein p53                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> HGNC:29984 29984    TP53AIP1  tumor protein p53 regulated apoptosis inducing…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HGNC:11999 11999    TP53BP1   tumor protein p53 binding protein 1            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HGNC:12000 12000    TP53BP2   tumor protein p53 binding protein 2            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HGNC:16328 16328    TP53BP2P1 tumor protein p53 binding protein 2 pseudogene…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> HGNC:43652 43652    TP53COR1  tumor protein p53 pathway corepressor 1        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HGNC:19373 19373    TP53I3    tumor protein p53 inducible protein 3          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HGNC:16842 16842    TP53I11   tumor protein p53 inducible protein 11         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HGNC:25102 25102    TP53I13   tumor protein p53 inducible protein 13         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HGNC:18022 18022    TP53INP1  tumor protein p53 inducible nuclear protein 1  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 13 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Match "TP53" exactly in the `symbol` column</span></span>
+<span class="r-in"><span class="va">hgnc_tbl</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">filter_by_keyword</span><span class="op">(</span><span class="st">'^TP53$'</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hgnc_id    hgnc_id2 symbol name             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> HGNC:11998 11998    TP53   tumor protein p53</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># `filter_by_keyword()` is vectorised over `keyword`</span></span>
+<span class="r-in"><span class="va">hgnc_tbl</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">filter_by_keyword</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'^TP53$'</span>, <span class="st">'^PIK3CA$'</span><span class="op">)</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hgnc_id    hgnc_id2 symbol name                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> HGNC:11998 11998    TP53   tumor protein p53                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> HGNC:8975  8975     PIK3CA phosphatidylinositol-4,5-bisphosphate 3-kinase cat…</span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

@@ -11,20 +11,20 @@ filter_by_keyword(
 )
 }
 \arguments{
-\item{tbl}{A tibble containing the HGNC data set, typically obtained with `import_hgnc_dataset()`.}
+\item{tbl}{A tibble containing the HGNC data set, typically obtained with \code{import_hgnc_dataset()}.}
 
 \item{keyword}{A keyword or a regular expression to be used as search criterion.}
 
 \item{cols}{Columns to be looked up.}
 }
 \value{
-A [tibble][tibble::tibble-package] of the HGNC data set filtered by
-  observations matching the `keyword`.
+A \link[tibble:tibble-package]{tibble} of the HGNC data set filtered by
+observations matching the \code{keyword}.
 }
 \description{
 Filter the HGNC data set by a keyword to be looked up in the columns
-containing gene names or symbols. By default, it will look up in `symbol`,
-`name`, `alias_symbol`, `alias_name`, `prev_symbol` and `prev_name`. Note
+containing gene names or symbols. By default, it will look up in \code{symbol},
+\code{name}, \code{alias_symbol}, \code{alias_name}, \code{prev_symbol} and \code{prev_name}. Note
 that this function in dive into list-columns and match return a hit result if
-at least one of the strings matches the `keyword`.
+at least one of the strings matches the \code{keyword}.
 }

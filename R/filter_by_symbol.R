@@ -13,6 +13,7 @@
 #' @return A [tibble][tibble::tibble-package] of the HGNC data set filtered by
 #'   observations matching the `keyword`.
 #'
+#' @md
 #' @export
 filter_by_keyword <-
   function(tbl,

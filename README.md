@@ -54,7 +54,7 @@ library(hgnc)
 
 # Date of HGNC last update
 last_update()
-#> [1] "2022-03-10 02:03:59 UTC"
+#> [1] "2022-04-04 02:37:12 UTC"
 
 # Direct URL to the latest archive in TSV format
 (url <- latest_archive_url())
@@ -65,7 +65,7 @@ last_update()
 hgnc_dataset <- import_hgnc_dataset(url)
 
 dplyr::glimpse(hgnc_dataset)
-#> Rows: 43,129
+#> Rows: 43,135
 #> Columns: 55
 #> $ hgnc_id                  <chr> "HGNC:5", "HGNC:37133", "HGNC:24086", "HGNC:7…
 #> $ hgnc_id2                 <chr> "5", "37133", "24086", "7", "27057", "23336",…
@@ -92,7 +92,7 @@ dplyr::glimpse(hgnc_dataset)
 #> $ ucsc_id                  <chr> "uc002qsd.5", "uc002qse.3", "uc057tgv.1", "uc…
 #> $ ena                      <list> NA, "BC040926", "AF271790", <"BX647329", "X6…
 #> $ refseq_accession         <list> "NM_130786", "NR_015380", "NM_014576", "NM_0…
-#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7241", "CCDS73133", "…
+#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7243", "CCDS73133", "…
 #> $ uniprot_ids              <list> "P04217", NA, "Q9NQ94", "P01023", NA, "A8K2U…
 #> $ pubmed_id                <list> "2591067", NA, <"11815617", "11072063">, <"2…
 #> $ mgd_id                   <list> "MGI:2152878", NA, "MGI:1917115", "MGI:24491…
@@ -133,7 +133,7 @@ found elsewhere that they are stripped of this prefix, so the column
 ``` r
 hgnc_dataset %>%
   dplyr::select(c('hgnc_id', 'hgnc_id2'))
-#> # A tibble: 43,129 × 2
+#> # A tibble: 43,135 × 2
 #>    hgnc_id    hgnc_id2
 #>    <chr>      <chr>   
 #>  1 HGNC:5     5       
@@ -146,7 +146,7 @@ hgnc_dataset %>%
 #>  8 HGNC:41523 41523   
 #>  9 HGNC:8     8       
 #> 10 HGNC:30005 30005   
-#> # … with 43,119 more rows
+#> # … with 43,125 more rows
 ```
 
 ### Locus groups
@@ -162,8 +162,8 @@ hgnc_dataset %>%
 #>   locus_group             n
 #>   <chr>               <int>
 #> 1 protein-coding gene 19243
-#> 2 pseudogene          13990
-#> 3 non-coding RNA       8881
+#> 2 pseudogene          13994
+#> 3 non-coding RNA       8883
 #> 4 other                1015
 ```
 
@@ -179,7 +179,7 @@ hgnc_dataset %>%
 #> # Groups:   locus_group [4]
 #>    locus_group         locus_type                     n
 #>    <chr>               <chr>                      <int>
-#>  1 non-coding RNA      RNA, long non-coding        5543
+#>  1 non-coding RNA      RNA, long non-coding        5545
 #>  2 non-coding RNA      RNA, micro                  1912
 #>  3 non-coding RNA      RNA, transfer                591
 #>  4 non-coding RNA      RNA, small nucleolar         568
@@ -200,7 +200,7 @@ hgnc_dataset %>%
 #> 19 other               complex locus constituent     29
 #> 20 other               virus integration site         8
 #> 21 protein-coding gene gene with protein product  19243
-#> 22 pseudogene          pseudogene                 13750
+#> 22 pseudogene          pseudogene                 13754
 #> 23 pseudogene          immunoglobulin pseudogene    203
 #> 24 pseudogene          T cell receptor pseudogene    37
 ```
@@ -222,20 +222,20 @@ into R.
 
 ``` r
 list_archives()
-#> # A tibble: 45 × 8
-#>    series  dataset  file  datetime            date       time         size url  
-#>    <chr>   <chr>    <chr> <dttm>              <date>     <Period>    <int> <chr>
-#>  1 monthly hgnc_co… hgnc… 2021-03-01 09:30:00 2021-03-01 9H 30M 0S  1.52e7 http…
-#>  2 monthly hgnc_co… hgnc… 2021-04-01 05:09:00 2021-04-01 5H 9M 0S   1.52e7 http…
-#>  3 monthly hgnc_co… hgnc… 2021-05-01 05:32:00 2021-05-01 5H 32M 0S  1.52e7 http…
-#>  4 monthly hgnc_co… hgnc… 2021-06-01 05:03:00 2021-06-01 5H 3M 0S   1.59e7 http…
-#>  5 monthly hgnc_co… hgnc… 2021-07-01 05:12:00 2021-07-01 5H 12M 0S  1.59e7 http…
-#>  6 monthly hgnc_co… hgnc… 2021-08-01 04:30:00 2021-08-01 4H 30M 0S  1.59e7 http…
-#>  7 monthly hgnc_co… hgnc… 2021-09-01 04:59:00 2021-09-01 4H 59M 0S  1.59e7 http…
-#>  8 monthly hgnc_co… hgnc… 2021-10-01 05:10:00 2021-10-01 5H 10M 0S  1.60e7 http…
-#>  9 monthly hgnc_co… hgnc… 2021-11-01 14:07:00 2021-11-01 14H 7M 0S  1.60e7 http…
-#> 10 monthly hgnc_co… hgnc… 2022-01-10 17:28:00 2022-01-10 17H 28M 0S 1.61e7 http…
-#> # … with 35 more rows
+#> # A tibble: 51 × 8
+#>    series  dataset  file  datetime            date       time        size url   
+#>    <chr>   <chr>    <chr> <dttm>              <date>     <Period>   <int> <chr> 
+#>  1 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
+#>  2 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
+#>  3 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
+#>  4 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
+#>  5 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
+#>  6 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
+#>  7 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
+#>  8 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.60e7 http:…
+#>  9 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.60e7 http:…
+#> 10 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.61e7 http:…
+#> # … with 41 more rows
 ```
 
 ## Motivation

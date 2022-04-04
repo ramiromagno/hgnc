@@ -25,6 +25,20 @@ filter_by_keyword <-
                     'prev_symbol',
                     'prev_name')) {
 
+  purrr::map_dfr(keyword, .f = filter_by_keyword_, tbl = tbl, cols = cols)
+  }
+
+
+filter_by_keyword_ <-
+  function(tbl,
+           keyword,
+           cols = c('symbol',
+                    'name',
+                    'alias_symbol',
+                    'alias_name',
+                    'prev_symbol',
+                    'prev_name')) {
+
     dplyr::filter(tbl,
                   dplyr::if_any(.cols = cols,
                                 str_detect2, pattern = keyword))

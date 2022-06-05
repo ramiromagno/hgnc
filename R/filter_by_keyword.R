@@ -14,6 +14,7 @@
 #'   observations matching the `keyword`.
 #'
 #' @examples
+#' try({
 #' # Start by retrieving the HGNC data set
 #' hgnc_tbl <- import_hgnc_dataset()
 #'
@@ -36,6 +37,7 @@
 #' hgnc_tbl %>%
 #'   filter_by_keyword(c('^TP53$', '^PIK3CA$'), cols = 'symbol') %>%
 #'   dplyr::select(1:4)
+#' })
 #'
 #' @md
 #' @export

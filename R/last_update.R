@@ -4,6 +4,8 @@
 #' set.
 #'
 #' @return A POSIXct date-time object.
+#' @examples
+#' try(last_update())
 #' @export
 last_update <- function() {
 

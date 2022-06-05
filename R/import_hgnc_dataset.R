@@ -204,5 +204,5 @@ import_hgnc_dataset_ <- function(file = latest_archive_url(), ...) {
 #' try(import_hgnc_dataset())
 #' @importFrom rlang .data
 #' @export
-import_hgnc_dataset <- memoise::memoise(import_hgnc_dataset_)
+import_hgnc_dataset <- import_hgnc_dataset_
 

@@ -5,7 +5,7 @@
 #' @return A [tibble][tibble::tibble-package] of available archives for download.
 #' @md
 #' @examples
-#' list_archives()
+#' try(list_archives())
 #'
 #' @export
 list_archives <- function() {

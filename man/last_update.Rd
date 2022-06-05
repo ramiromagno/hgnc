@@ -13,3 +13,6 @@ A POSIXct date-time object.
 This function returns the date of the most recent update of the HGNC data
 set.
 }
+\examples{
+try(last_update())
+}

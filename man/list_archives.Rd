@@ -13,6 +13,6 @@ A \link[tibble:tibble-package]{tibble} of available archives for download.
 This function lists the monthly and quarterly archives currently available.
 }
 \examples{
-list_archives()
+try(list_archives())
 
 }

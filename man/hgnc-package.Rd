@@ -12,7 +12,7 @@ A set of routines to quickly download and import the 'HGNC' data set on mapping 
 Useful links:
 \itemize{
   \item \url{https://github.com/maialab/hgnc}
-  \item \url{https://maialab.org/hgnc}
+  \item \url{https://maialab.org/hgnc/}
   \item Report bugs at \url{https://github.com/maialab/hgnc/issues}
 }
 

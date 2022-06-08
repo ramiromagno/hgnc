@@ -201,7 +201,7 @@ import_hgnc_dataset_ <- function(file = latest_archive_url(), ...) {
 #'
 #' @md
 #' @examples
-#' try(import_hgnc_dataset())
+#' \dontrun{import_hgnc_dataset()}
 #' @importFrom rlang .data
 #' @export
 import_hgnc_dataset <- import_hgnc_dataset_

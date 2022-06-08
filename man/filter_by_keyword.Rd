@@ -29,7 +29,7 @@ that this function in dive into list-columns and match return a hit result if
 at least one of the strings matches the \code{keyword}.
 }
 \examples{
-try({
+\dontrun{
 # Start by retrieving the HGNC data set
 hgnc_tbl <- import_hgnc_dataset()
 
@@ -52,6 +52,6 @@ hgnc_tbl \%>\%
 hgnc_tbl \%>\%
   filter_by_keyword(c('^TP53$', '^PIK3CA$'), cols = 'symbol') \%>\%
   dplyr::select(1:4)
-})
+}
 
 }

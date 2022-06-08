@@ -12,7 +12,3 @@ A \link[tibble:tibble-package]{tibble} of available archives for download.
 \description{
 This function lists the monthly and quarterly archives currently available.
 }
-\examples{
-try(list_archives())
-
-}

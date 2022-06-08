@@ -123,5 +123,5 @@ This function imports into memory, as a tibble, the complete HGNC data set
 from a TSV file.
 }
 \examples{
-try(import_hgnc_dataset())
+\dontrun{import_hgnc_dataset()}
 }

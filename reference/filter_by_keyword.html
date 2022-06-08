@@ -87,7 +87,7 @@ observations matching the <code>keyword</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">{</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># Start by retrieving the HGNC data set</span></span>
 <span class="r-in"><span class="va">hgnc_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="import_hgnc_dataset.html">import_hgnc_dataset</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -110,12 +110,7 @@ observations matching the <code>keyword</code>.</p>
 <span class="r-in"><span class="va">hgnc_tbl</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">filter_by_keyword</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'^TP53$'</span>, <span class="st">'^PIK3CA$'</span><span class="op">)</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   hgnc_id    hgnc_id2 symbol name                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> HGNC:11998 11998    TP53   tumor protein p53                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> HGNC:8975  8975     PIK3CA phosphatidylinositol-4,5-bisphosphate 3-kinase cat…</span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

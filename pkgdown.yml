@@ -1,8 +1,8 @@
-pandoc: 2.7.3
-pkgdown: 2.0.3
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-06-08T17:04Z
+last_built: 2023-06-20T15:31Z
 urls:
   reference: https://maialab.org/hgnc/reference
   article: https://maialab.org/hgnc/articles

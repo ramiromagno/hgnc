@@ -11,14 +11,14 @@ A set of routines to quickly download and import the 'HGNC' data set on mapping 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/maialab/hgnc}
-  \item \url{https://maialab.org/hgnc/}
-  \item Report bugs at \url{https://github.com/maialab/hgnc/issues}
+  \item \url{https://github.com/ramiromagno/hgnc}
+  \item \url{https://rmagno.eu/hgnc/}
+  \item Report bugs at \url{https://github.com/ramiromagno/hgnc/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Ramiro Magno \email{ramiro.magno@gmail.com} (\href{https://orcid.org/0000-0001-5226-3441}{ORCID})
+\strong{Maintainer}: Ramiro Magno \email{rmagno@pattern.institute} (\href{https://orcid.org/0000-0001-5226-3441}{ORCID})
 
 Authors:
 \itemize{
@@ -28,6 +28,7 @@ Authors:
 Other contributors:
 \itemize{
   \item CINTESIS [copyright holder, funder]
+  \item Pattern Institute [copyright holder, funder]
 }
 
 }

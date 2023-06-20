@@ -32,7 +32,7 @@ The goal of `{hgnc}` is to easily download and import the latest HGNC complete
 gene data set into R.
 
 This data set provides a useful mapping of HGNC symbols to gene entries in other
-popular databases or resouces, such as, the Entrez gene identifier or the UCSC
+popular databases or resources, such as, the Entrez gene identifier or the UCSC
 gene identifier, among many others. Check the documentation of the function
 `import_hgnc_dataset()` for a description of the several fields available.
 
@@ -48,7 +48,7 @@ You can install the development version of `{hgnc}` like so:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("maialab/hgnc")
+remotes::install_github("ramiromagno/hgnc")
 ```
 
 ## Usage

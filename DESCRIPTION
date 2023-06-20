@@ -4,25 +4,25 @@ Title: Download and Import the HUGO Gene Nomenclature Committee ('HGNC') Data Se
 Version: 0.1.2
 Authors@R: c(
     person(given = "Ramiro", family = "Magno",
-      email = "ramiro.magno@gmail.com",
+      email = "rmagno@pattern.institute",
       role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-5226-3441")),
     person(given = "Ana-Teresa", family = "Maia",
       email = "maia.anateresa@gmail.com", role = "aut", 
       comment = c(ORCID = "0000-0002-0454-9207")),
-    person("CINTESIS",
-    role = c("cph", "fnd"))
+    person("CINTESIS", role = c("cph", "fnd")),
+    person("Pattern Institute", role = c("cph", "fnd"))
     )
 Description: A set of routines to quickly download and import the 'HGNC'
     data set on mapping of gene symbols to gene entries in other popular
     databases or resources.
 License: MIT + file LICENSE
-URL: https://github.com/maialab/hgnc,
-    https://maialab.org/hgnc/
-BugReports: https://github.com/maialab/hgnc/issues
+URL: https://github.com/ramiromagno/hgnc,
+    https://rmagno.eu/hgnc/
+BugReports: https://github.com/ramiromagno/hgnc/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     hms,

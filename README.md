@@ -54,18 +54,18 @@ library(hgnc)
 
 # Date of HGNC last update
 last_update()
-#> [1] "2022-04-04 02:37:12 UTC"
+#> [1] "2023-06-20 12:46:57 UTC"
 
 # Direct URL to the latest archive in TSV format
 (url <- latest_archive_url())
-#> [1] "http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt"
+#> [1] "https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt"
 
 # Import the data set in tidy tabular format
 # NB: Multiple-value columns are kept as list-columns
 hgnc_dataset <- import_hgnc_dataset(url)
 
 dplyr::glimpse(hgnc_dataset)
-#> Rows: 43,135
+#> Rows: 43,700
 #> Columns: 55
 #> $ hgnc_id                  <chr> "HGNC:5", "HGNC:37133", "HGNC:24086", "HGNC:7…
 #> $ hgnc_id2                 <chr> "5", "37133", "24086", "7", "27057", "23336",…
@@ -81,18 +81,18 @@ dplyr::glimpse(hgnc_dataset)
 #> $ prev_symbol              <list> NA, <"NCRNA00181", "A1BGAS", "A1BG-AS">, NA,…
 #> $ prev_name                <list> NA, <"non-protein coding RNA 181", "A1BG ant…
 #> $ gene_group               <list> "Immunoglobulin like domain containing", "An…
-#> $ gene_group_id            <list> "594", "1987", "725", "1234", "1987", "1234"…
+#> $ gene_group_id            <list> "594", "1987", "725", "2148", "1987", "2148"…
 #> $ date_approved_reserved   <date> 1989-06-30, 2009-07-20, 2007-11-23, 1986-01-…
 #> $ date_symbol_changed      <date> NA, 2010-11-25, NA, NA, NA, 2005-09-01, NA, …
 #> $ date_name_changed        <date> NA, 2012-08-15, NA, NA, 2018-03-21, 2016-03-…
-#> $ date_modified            <date> 2020-09-17, 2013-06-27, 2016-10-05, 2021-04-…
+#> $ date_modified            <date> 2023-01-20, 2013-06-27, 2023-01-20, 2023-01-…
 #> $ entrez_id                <int> 1, 503538, 29974, 2, 144571, 144568, 10087410…
 #> $ ensembl_gene_id          <chr> "ENSG00000121410", "ENSG00000268895", "ENSG00…
 #> $ vega_id                  <chr> "OTTHUMG00000183507", "OTTHUMG00000183508", "…
 #> $ ucsc_id                  <chr> "uc002qsd.5", "uc002qse.3", "uc057tgv.1", "uc…
 #> $ ena                      <list> NA, "BC040926", "AF271790", <"BX647329", "X6…
 #> $ refseq_accession         <list> "NM_130786", "NR_015380", "NM_014576", "NM_0…
-#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7243", "CCDS73133", "…
+#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7243", "CCDS7242", "C…
 #> $ uniprot_ids              <list> "P04217", NA, "Q9NQ94", "P01023", NA, "A8K2U…
 #> $ pubmed_id                <list> "2591067", NA, <"11815617", "11072063">, <"2…
 #> $ mgd_id                   <list> "MGI:2152878", NA, "MGI:1917115", "MGI:24491…
@@ -133,7 +133,7 @@ found elsewhere that they are stripped of this prefix, so the column
 ``` r
 hgnc_dataset %>%
   dplyr::select(c('hgnc_id', 'hgnc_id2'))
-#> # A tibble: 43,135 × 2
+#> # A tibble: 43,700 × 2
 #>    hgnc_id    hgnc_id2
 #>    <chr>      <chr>   
 #>  1 HGNC:5     5       
@@ -146,7 +146,7 @@ hgnc_dataset %>%
 #>  8 HGNC:41523 41523   
 #>  9 HGNC:8     8       
 #> 10 HGNC:30005 30005   
-#> # … with 43,125 more rows
+#> # ℹ 43,690 more rows
 ```
 
 ### Locus groups
@@ -161,10 +161,10 @@ hgnc_dataset %>%
 #> # A tibble: 4 × 2
 #>   locus_group             n
 #>   <chr>               <int>
-#> 1 protein-coding gene 19243
-#> 2 pseudogene          13994
-#> 3 non-coding RNA       8883
-#> 4 other                1015
+#> 1 protein-coding gene 19270
+#> 2 pseudogene          14364
+#> 3 non-coding RNA       9075
+#> 4 other                 991
 ```
 
 `locus_type` provides a finer classification:
@@ -175,34 +175,33 @@ hgnc_dataset %>%
   dplyr::count(locus_type, sort = TRUE) %>%
   dplyr::arrange(locus_group) %>%
   print(n = Inf)
-#> # A tibble: 24 × 3
+#> # A tibble: 23 × 3
 #> # Groups:   locus_group [4]
 #>    locus_group         locus_type                     n
 #>    <chr>               <chr>                      <int>
-#>  1 non-coding RNA      RNA, long non-coding        5545
+#>  1 non-coding RNA      RNA, long non-coding        5738
 #>  2 non-coding RNA      RNA, micro                  1912
 #>  3 non-coding RNA      RNA, transfer                591
 #>  4 non-coding RNA      RNA, small nucleolar         568
 #>  5 non-coding RNA      RNA, cluster                 119
 #>  6 non-coding RNA      RNA, ribosomal                60
 #>  7 non-coding RNA      RNA, small nuclear            50
-#>  8 non-coding RNA      RNA, misc                     30
-#>  9 non-coding RNA      RNA, vault                     4
-#> 10 non-coding RNA      RNA, Y                         4
+#>  8 non-coding RNA      RNA, misc                     29
+#>  9 non-coding RNA      RNA, Y                         4
+#> 10 non-coding RNA      RNA, vault                     4
 #> 11 other               immunoglobulin gene          230
 #> 12 other               T cell receptor gene         206
-#> 13 other               readthrough                  139
+#> 13 other               readthrough                  147
 #> 14 other               fragile site                 116
 #> 15 other               endogenous retrovirus        109
-#> 16 other               unknown                      101
-#> 17 other               protocadherin                 39
+#> 16 other               complex locus constituent     69
+#> 17 other               unknown                       68
 #> 18 other               region                        38
-#> 19 other               complex locus constituent     29
-#> 20 other               virus integration site         8
-#> 21 protein-coding gene gene with protein product  19243
-#> 22 pseudogene          pseudogene                 13754
-#> 23 pseudogene          immunoglobulin pseudogene    203
-#> 24 pseudogene          T cell receptor pseudogene    37
+#> 19 other               virus integration site         8
+#> 20 protein-coding gene gene with protein product  19270
+#> 21 pseudogene          pseudogene                 14124
+#> 22 pseudogene          immunoglobulin pseudogene    203
+#> 23 pseudogene          T cell receptor pseudogene    37
 ```
 
 ### Downloading to disk
@@ -222,20 +221,20 @@ into R.
 
 ``` r
 list_archives()
-#> # A tibble: 51 × 8
-#>    series  dataset  file  datetime            date       time        size url   
-#>    <chr>   <chr>    <chr> <dttm>              <date>     <Period>   <int> <chr> 
-#>  1 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
-#>  2 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
-#>  3 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.52e7 http:…
-#>  4 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
-#>  5 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
-#>  6 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
-#>  7 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.59e7 http:…
-#>  8 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.60e7 http:…
-#>  9 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.60e7 http:…
-#> 10 monthly hgnc_co… hgnc… 2022-04-04 08:11:00 2022-04-04 8H 11M 0S 1.61e7 http:…
-#> # … with 41 more rows
+#> # A tibble: 97 × 6
+#>    series  dataset           file                         date       size  url  
+#>    <chr>   <chr>             <chr>                        <date>     <chr> <chr>
+#>  1 monthly hgnc_complete_set hgnc_complete_set_2021-03-0… 2023-05-01 14M   http…
+#>  2 monthly hgnc_complete_set hgnc_complete_set_2021-04-0… 2023-05-01 15M   http…
+#>  3 monthly hgnc_complete_set hgnc_complete_set_2021-05-0… 2023-05-01 15M   http…
+#>  4 monthly hgnc_complete_set hgnc_complete_set_2021-06-0… 2023-05-01 15M   http…
+#>  5 monthly hgnc_complete_set hgnc_complete_set_2021-07-0… 2023-05-01 15M   http…
+#>  6 monthly hgnc_complete_set hgnc_complete_set_2021-08-0… 2023-05-01 15M   http…
+#>  7 monthly hgnc_complete_set hgnc_complete_set_2021-09-0… 2023-05-01 15M   http…
+#>  8 monthly hgnc_complete_set hgnc_complete_set_2021-10-0… 2023-05-01 15M   http…
+#>  9 monthly hgnc_complete_set hgnc_complete_set_2021-11-0… 2023-05-01 15M   http…
+#> 10 monthly hgnc_complete_set hgnc_complete_set_2021-12-0… 2023-05-01 15M   http…
+#> # ℹ 87 more rows
 ```
 
 ## Motivation
@@ -286,20 +285,20 @@ Look for entries in the data set that contain the keyword `"TP53"`:
 hgnc_dataset %>%
   filter_by_keyword('TP53') %>%
   dplyr::select(1:4)
-#> # A tibble: 47 × 4
-#>    hgnc_id    hgnc_id2 symbol     name                                          
-#>    <chr>      <chr>    <chr>      <chr>                                         
-#>  1 HGNC:49685 49685    ABHD15-AS1 ABHD15 antisense RNA 1                        
-#>  2 HGNC:20679 20679    ANO9       anoctamin 9                                   
-#>  3 HGNC:13276 13276    EI24       EI24 autophagy associated transmembrane prote…
-#>  4 HGNC:3345  3345     ENC1       ectodermal-neural cortex 1                    
-#>  5 HGNC:4136  4136     GAMT       guanidinoacetate N-methyltransferase          
-#>  6 HGNC:6568  6568     LGALS7     galectin 7                                    
-#>  7 HGNC:53222 53222    LINC02303  long intergenic non-protein coding RNA 2303   
-#>  8 HGNC:16841 16841    LITAF      lipopolysaccharide induced TNF factor         
-#>  9 HGNC:6762  6762     MAD1L1     mitotic arrest deficient 1 like 1             
-#> 10 HGNC:17637 17637    PERP       p53 apoptosis effector related to PMP22       
-#> # … with 37 more rows
+#> # A tibble: 66 × 4
+#>    hgnc_id    hgnc_id2 symbol      name                                         
+#>    <chr>      <chr>    <chr>       <chr>                                        
+#>  1 HGNC:49685 49685    ABHD15-AS1  ABHD15 antisense RNA 1                       
+#>  2 HGNC:20679 20679    ANO9        anoctamin 9                                  
+#>  3 HGNC:40093 40093    BCAR3-AS1   BCAR3 antisense RNA 1                        
+#>  4 HGNC:13276 13276    EI24        EI24 autophagy associated transmembrane prot…
+#>  5 HGNC:3345  3345     ENC1        ectodermal-neural cortex 1                   
+#>  6 HGNC:27919 27919    ERVMER61-1  endogenous retrovirus group MER61 member 1   
+#>  7 HGNC:56226 56226    FAM169A-AS1 FAM169A antisense RNA 1                      
+#>  8 HGNC:4136  4136     GAMT        guanidinoacetate N-methyltransferase         
+#>  9 HGNC:54868 54868    KLRK1-AS1   KLRK1 antisense RNA 1                        
+#> 10 HGNC:6568  6568     LGALS7      galectin 7                                   
+#> # ℹ 56 more rows
 ```
 
 Restrict the search to the `symbol` column:
@@ -321,7 +320,7 @@ hgnc_dataset %>%
 #>  8 HGNC:16842 16842    TP53I11   tumor protein p53 inducible protein 11         
 #>  9 HGNC:25102 25102    TP53I13   tumor protein p53 inducible protein 13         
 #> 10 HGNC:18022 18022    TP53INP1  tumor protein p53 inducible nuclear protein 1  
-#> # … with 13 more rows
+#> # ℹ 13 more rows
 ```
 
 Search for the whole word `"TP53"` exactly by taking advantage of
@@ -341,16 +340,16 @@ hgnc_dataset %>%
 
 To cite HGNC nomenclature resources use:
 
--   Tweedie S, Braschi B, Gray KA, Jones TEM, Seal RL, Yates B, Bruford
-    EA. *Genenames.org: the HGNC and VGNC resources in 2021.* Nucleic
-    Acids Res. 49, D939–D946 (2021). doi:
-    [10.1093/nar/gkaa980](https://doi.org/10.1093/nar/gkaa980)
+- Tweedie S, Braschi B, Gray KA, Jones TEM, Seal RL, Yates B, Bruford
+  EA. *Genenames.org: the HGNC and VGNC resources in 2021.* Nucleic
+  Acids Res. 49, D939–D946 (2021). doi:
+  [10.1093/nar/gkaa980](https://doi.org/10.1093/nar/gkaa980)
 
 To cite data within the database use the following format:
 
--   HGNC Database, HUGO Gene Nomenclature Committee (HGNC), European
-    Molecular Biology Laboratory, European Bioinformatics Institute
-    (EMBL-EBI), Wellcome Genome Campus, Hinxton, Cambridge CB10 1SD,
-    United Kingdom www.genenames.org.
+- HGNC Database, HUGO Gene Nomenclature Committee (HGNC), European
+  Molecular Biology Laboratory, European Bioinformatics Institute
+  (EMBL-EBI), Wellcome Genome Campus, Hinxton, Cambridge CB10 1SD,
+  United Kingdom www.genenames.org.
 
 Please include the month and year you retrieved the data cited.

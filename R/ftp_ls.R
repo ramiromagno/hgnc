@@ -3,18 +3,25 @@ ftp_ls <- function(url) {
 
   txt <-
     rvest::read_html(url) %>%
-    rvest::html_elements('pre') %>%
+    rvest::html_elements(xpath = "//html/body/table") %>%
     rvest::html_text2()
 
-  # Remove "../\r\n"
-  txt2 <- sub(pattern = '^../\r\n', replacement = '', x =  txt)
+  txt2 <- sub(pattern = 'Parent Directory\t \t-\t \n', replacement = '', x =  txt)
+  txt3 <- sub(pattern = "\tName\tLast modified\tSize\tDescription\n\n\n\t", replacement = "", x = txt2)
 
-  df <- utils::read.table(text = txt2, header = FALSE, col.names = c('file', 'date', 'time', 'size'))
+  df <-
+    utils::read.table(
+      text = txt3,
+      sep = "\t",
+      header = FALSE,
+      col.names = c("..", 'file', 'date', 'size', 'description'),
+      colClasses = c("NULL", "character", "character", "character", "NULL")
+    )
+
   tbl <- tibble::as_tibble(df) %>%
-    dplyr::mutate(datetime = lubridate::parse_date_time(paste(.data$date, .data$time), "d-m-y HM"), .before = .data$date) %>%
-    dplyr::mutate(date = lubridate::dmy(.data$date),
-                  time = lubridate::hm(.data$time)) %>%
     dplyr::mutate(dataset = stringr::str_remove(.data$file, '[-_]\\d{4}-\\d{2}-\\d{2}\\.\\w+$'), .before = 1L) %>%
+    dplyr::mutate(last_modified = lubridate::ymd_hm(date)) |>
+    dplyr::mutate(date = lubridate::ymd(stringr::str_extract(file, "\\d{4}-\\d{2}-\\d{2}"))) |>
     dplyr::mutate(url = rvest::url_absolute(x = .data$file, base = url))
 
   return(tbl)

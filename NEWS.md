@@ -1,3 +1,8 @@
+# hgnc 0.1.3
+
+* Transition documentation from maialab.org to rmagno.eu.
+* Updated `ftp_ls()` to reflect server side changes.
+
 # hgnc 0.1.2
 
 * Fixed code examples that relied on Internet resources --- these examples no

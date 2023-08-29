@@ -1,3 +1,7 @@
+# hgnc 0.1.4
+
+* Fix https://github.com/ramiromagno/hgnc/issues/2.
+
 # hgnc 0.1.3
 
 * Transition documentation from maialab.org to rmagno.eu.

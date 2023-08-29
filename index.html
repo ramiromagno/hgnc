@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">hgnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 <p>The <a href="https://www.genenames.org/" class="external-link">HUGO Gene Nomenclature Committee (HGNC)</a> is a committee of the Human Genome Organisation (HUGO) that sets the standards for human gene nomenclature.</p>
 <p>The HGNC approves a unique and meaningful name for every known human gene, based on a group of experts. In addition, the HGNC also provides the mapping between gene symbols to gene entries in other popular databases or resources: the HGNC complete gene set.</p>
 <p>The goal of <a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> is to easily download and import the latest HGNC complete gene data set into R.</p>
-<p>This data set provides a useful mapping of HGNC symbols to gene entries in other popular databases or resouces, such as, the Entrez gene identifier or the UCSC gene identifier, among many others. Check the documentation of the function <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> for a description of the several fields available.</p>
+<p>This data set provides a useful mapping of HGNC symbols to gene entries in other popular databases or resources, such as, the Entrez gene identifier or the UCSC gene identifier, among many others. Check the documentation of the function <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> for a description of the several fields available.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -91,7 +91,7 @@
 <p>You can install the development version of <a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> like so:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"maialab/hgnc"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ramiromagno/hgnc"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -105,7 +105,7 @@
 <span></span>
 <span><span class="co"># Date of HGNC last update</span></span>
 <span><span class="fu"><a href="reference/last_update.html">last_update</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-06-20 12:46:57 UTC"</span></span>
+<span><span class="co">#&gt; [1] "2023-08-28 03:17:41 UTC"</span></span>
 <span></span>
 <span><span class="co"># Direct URL to the latest archive in TSV format</span></span>
 <span><span class="op">(</span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/latest_archive_url.html">latest_archive_url</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -116,7 +116,7 @@
 <span><span class="va">hgnc_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">hgnc_dataset</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 43,700</span></span>
+<span><span class="co">#&gt; Rows: 43,718</span></span>
 <span><span class="co">#&gt; Columns: 55</span></span>
 <span><span class="co">#&gt; $ hgnc_id                  &lt;chr&gt; "HGNC:5", "HGNC:37133", "HGNC:24086", "HGNC:7…</span></span>
 <span><span class="co">#&gt; $ hgnc_id2                 &lt;chr&gt; "5", "37133", "24086", "7", "27057", "23336",…</span></span>
@@ -143,7 +143,7 @@
 <span><span class="co">#&gt; $ ucsc_id                  &lt;chr&gt; "uc002qsd.5", "uc002qse.3", "uc057tgv.1", "uc…</span></span>
 <span><span class="co">#&gt; $ ena                      &lt;list&gt; NA, "BC040926", "AF271790", &lt;"BX647329", "X6…</span></span>
 <span><span class="co">#&gt; $ refseq_accession         &lt;list&gt; "NM_130786", "NR_015380", "NM_014576", "NM_0…</span></span>
-<span><span class="co">#&gt; $ ccds_id                  &lt;list&gt; "CCDS12976", NA, &lt;"CCDS7243", "CCDS7242", "C…</span></span>
+<span><span class="co">#&gt; $ ccds_id                  &lt;list&gt; "CCDS12976", NA, &lt;"CCDS7241", "CCDS7242", "C…</span></span>
 <span><span class="co">#&gt; $ uniprot_ids              &lt;list&gt; "P04217", NA, "Q9NQ94", "P01023", NA, "A8K2U…</span></span>
 <span><span class="co">#&gt; $ pubmed_id                &lt;list&gt; "2591067", NA, &lt;"11815617", "11072063"&gt;, &lt;"2…</span></span>
 <span><span class="co">#&gt; $ mgd_id                   &lt;list&gt; "MGI:2152878", NA, "MGI:1917115", "MGI:24491…</span></span>
@@ -177,7 +177,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'hgnc_id'</span>, <span class="st">'hgnc_id2'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 43,700 × 2</span></span>
+<span><span class="co">#&gt; # A tibble: 43,718 × 2</span></span>
 <span><span class="co">#&gt;    hgnc_id    hgnc_id2</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   </span></span>
 <span><span class="co">#&gt;  1 HGNC:5     5       </span></span>
@@ -190,7 +190,7 @@
 <span><span class="co">#&gt;  8 HGNC:41523 41523   </span></span>
 <span><span class="co">#&gt;  9 HGNC:8     8       </span></span>
 <span><span class="co">#&gt; 10 HGNC:30005 30005   </span></span>
-<span><span class="co">#&gt; # ℹ 43,690 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 43,708 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="locus-groups">Locus groups<a class="anchor" aria-label="anchor" href="#locus-groups"></a>
@@ -202,9 +202,9 @@
 <span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span><span class="co">#&gt;   locus_group             n</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;               &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 protein-coding gene 19270</span></span>
-<span><span class="co">#&gt; 2 pseudogene          14364</span></span>
-<span><span class="co">#&gt; 3 non-coding RNA       9075</span></span>
+<span><span class="co">#&gt; 1 protein-coding gene 19278</span></span>
+<span><span class="co">#&gt; 2 pseudogene          14362</span></span>
+<span><span class="co">#&gt; 3 non-coding RNA       9087</span></span>
 <span><span class="co">#&gt; 4 other                 991</span></span></code></pre></div>
 <p><code>locus_type</code> provides a finer classification:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -217,7 +217,7 @@
 <span><span class="co">#&gt; # Groups:   locus_group [4]</span></span>
 <span><span class="co">#&gt;    locus_group         locus_type                     n</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;               &lt;chr&gt;                      &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 non-coding RNA      RNA, long non-coding        5738</span></span>
+<span><span class="co">#&gt;  1 non-coding RNA      RNA, long non-coding        5750</span></span>
 <span><span class="co">#&gt;  2 non-coding RNA      RNA, micro                  1912</span></span>
 <span><span class="co">#&gt;  3 non-coding RNA      RNA, transfer                591</span></span>
 <span><span class="co">#&gt;  4 non-coding RNA      RNA, small nucleolar         568</span></span>
@@ -236,8 +236,8 @@
 <span><span class="co">#&gt; 17 other               unknown                       68</span></span>
 <span><span class="co">#&gt; 18 other               region                        38</span></span>
 <span><span class="co">#&gt; 19 other               virus integration site         8</span></span>
-<span><span class="co">#&gt; 20 protein-coding gene gene with protein product  19270</span></span>
-<span><span class="co">#&gt; 21 pseudogene          pseudogene                 14124</span></span>
+<span><span class="co">#&gt; 20 protein-coding gene gene with protein product  19278</span></span>
+<span><span class="co">#&gt; 21 pseudogene          pseudogene                 14122</span></span>
 <span><span class="co">#&gt; 22 pseudogene          immunoglobulin pseudogene    203</span></span>
 <span><span class="co">#&gt; 23 pseudogene          T cell receptor pseudogene    37</span></span></code></pre></div>
 </div>
@@ -252,20 +252,20 @@
 <p>Besides the latest archive, the <a href="https://www.genenames.org/" class="external-link">HUGO Gene Nomenclature Committee (HGNC)</a> website also provides monthly and quarterly updates. Use <code><a href="reference/list_archives.html">list_archives()</a></code> to list the currently available for download archives. The column <code>url</code> contains the direct download link that you can pass to <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> to import the data into R.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/list_archives.html">list_archives</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 97 × 6</span></span>
-<span><span class="co">#&gt;    series  dataset           file                         date       size  url  </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;chr&gt;                        &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt;  1 monthly hgnc_complete_set hgnc_complete_set_2021-03-0… 2023-05-01 14M   http…</span></span>
-<span><span class="co">#&gt;  2 monthly hgnc_complete_set hgnc_complete_set_2021-04-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  3 monthly hgnc_complete_set hgnc_complete_set_2021-05-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  4 monthly hgnc_complete_set hgnc_complete_set_2021-06-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  5 monthly hgnc_complete_set hgnc_complete_set_2021-07-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  6 monthly hgnc_complete_set hgnc_complete_set_2021-08-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  7 monthly hgnc_complete_set hgnc_complete_set_2021-09-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  8 monthly hgnc_complete_set hgnc_complete_set_2021-10-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt;  9 monthly hgnc_complete_set hgnc_complete_set_2021-11-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt; 10 monthly hgnc_complete_set hgnc_complete_set_2021-12-0… 2023-05-01 15M   http…</span></span>
-<span><span class="co">#&gt; # ℹ 87 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 106 × 7</span></span>
+<span><span class="co">#&gt;    series  dataset           file     date       size  last_modified       url  </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;chr&gt;    &lt;date&gt;     &lt;chr&gt; &lt;dttm&gt;              &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 monthly hgnc_complete_set hgnc_co… 2021-03-01 14M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  2 monthly hgnc_complete_set hgnc_co… 2021-04-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  3 monthly hgnc_complete_set hgnc_co… 2021-05-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  4 monthly hgnc_complete_set hgnc_co… 2021-06-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  5 monthly hgnc_complete_set hgnc_co… 2021-07-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  6 monthly hgnc_complete_set hgnc_co… 2021-08-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  7 monthly hgnc_complete_set hgnc_co… 2021-09-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  8 monthly hgnc_complete_set hgnc_co… 2021-10-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt;  9 monthly hgnc_complete_set hgnc_co… 2021-11-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt; 10 monthly hgnc_complete_set hgnc_co… 2021-12-01 15M   2023-05-01 00:05:00 http…</span></span>
+<span><span class="co">#&gt; # ℹ 96 more rows</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

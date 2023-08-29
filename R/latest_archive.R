@@ -1,28 +1,3 @@
-#' @importFrom rlang .data
-latest_monthly_archive <- function(type = c('tsv', 'json')) {
-
-  type <- match.arg(type)
-  ftp_url <- rvest::url_absolute(x = paste0('monthly/', type, '/'), base = ftp_archive())
-
-  tbl <- ftp_ls(ftp_url)
-
-  tbl %>%
-    dplyr::filter(.data$dataset == 'hgnc_complete_set') %>%
-    dplyr::arrange(dplyr::desc(.data$datetime)) %>%
-    dplyr::slice(1L)
-
-}
-
-#' @importFrom rlang .data
-latest_monthly_archive_url <- function(type = c('tsv', 'json')) {
-
-  type <- match.arg(type)
-
-  url <- latest_monthly_archive(type = type) %>%
-    dplyr::pull(.data$url)
-
-  return(url)
-}
 
 #' @importFrom rlang .data
 latest_archive <- function(type = c('tsv', 'json')) {
@@ -69,6 +44,58 @@ latest_archive_url <- function(type = c('tsv', 'json')) {
   extension <- ifelse(type == 'tsv', 'txt', 'json')
   filename <- paste0(basename, '.', extension)
   url <- paste0(ftp_base_url(), type, '/', filename)
+  # allow memoisation to recognise new updates
+  attr(url, 'last_update') <- last_update()
+
+  return(url)
+}
+
+#' Latest HGNC monthly URL
+#'
+#' @return A string with the latest HGNC monthly archive URL.
+#'
+#' @examples
+#' latest_monthly_url()
+#'
+#' @md
+#' @export
+#' @importFrom rlang .data
+latest_monthly_url <- function() {
+
+  url <-
+    list_archives() %>%
+    dplyr::filter(.data$series == 'monthly',
+                  .data$dataset == 'hgnc_complete_set') %>%
+    dplyr::arrange(date) %>%
+    dplyr::pull(url) %>%
+    dplyr::last()
+
+  stopifnot(length(url) == 1)
+
+  return(url)
+}
+
+#' Latest HGNC quarterly URL
+#'
+#' @return A string with the latest HGNC monthly archive URL.
+#'
+#' @examples
+#' latest_quarterly_url()
+#'
+#' @md
+#' @export
+#' @importFrom rlang .data
+latest_quarterly_url <- function() {
+
+  url <-
+    list_archives() %>%
+    dplyr::filter(.data$series == 'quarterly',
+                  .data$dataset == 'hgnc_complete_set') %>%
+    dplyr::arrange(date) %>%
+    dplyr::pull(url) %>%
+    dplyr::last()
+
+  stopifnot(length(url) == 1)
 
   return(url)
 }

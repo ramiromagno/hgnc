@@ -7,8 +7,8 @@
 #' @export
 list_archives <- function() {
 
-  monthly_url <- rvest::url_absolute('monthly/tsv', ftp_archive())
-  quarterly_url <- rvest::url_absolute('quarterly/tsv', ftp_archive())
+  monthly_url <- rvest::url_absolute('monthly/tsv/', ftp_archive())
+  quarterly_url <- rvest::url_absolute('quarterly/tsv/', ftp_archive())
 
   monthly_tbl <- ftp_ls(monthly_url) %>%
     dplyr::mutate(series = 'monthly', .before = 1L)

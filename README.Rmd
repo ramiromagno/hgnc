@@ -126,19 +126,11 @@ list_archives()
 
 ### Caching
 
-By default `{hgnc}` will use memory-based caching through the package `{memoise}`. This will ensure that time consuming downloads are not rerun unnecessarily. Caching behavior can be controlled by setting options *prior* to loading the hgnc package, or by detaching then reloading the package:
+By default `{hgnc}` will use memory-based caching through the package `{memoise}`. This will ensure that time consuming downloads are not rerun unnecessarily during a single R-session. Persistent disk based caching can also be enabled using the function `use_cache_dir`.
 
 ```{r}
-detach('package:hgnc', unload = T)
-options(hgnc.cache_mode = 'cache_mem')
-library(hgnc)
+use_cache_dir(cache_dir =  './hgnc_cache')
 ```
-
-Available options for `hgnc.cache_mode`:  
-1. `'cache_mem'` - this will use memory based cacheing, see `cachem::cache_mem`. This is enabled by default.  
-2. `'cache_disk'` - this will use a disk based cache, see `cachem::cache_disk`. This cache will persist between R sessions. Note that the default cache directory is provided by `tools::R_user_dir('hgnc', 'cache')`, but can be specicified through `options(hgnc.cache_dir = '<dir>')`.  
-3. `'cache_layered'` - this is a hybrid cache including a memory cache and a disk cache, see `cachem::layered`. This cache will persist between R sessions and provides improved speed on repeated access over the pure disk cache.  
-4. `'none'` - disable caching.  
 
 ## Motivation
 

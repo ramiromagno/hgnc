@@ -5,10 +5,12 @@
 #' @return A [tibble][tibble::tibble-package] of available archives for download.
 #' @md
 #' @export
-list_archives <- function() {
+# list_archives memoised in zzz.R
+list_archives <- function(type = c('tsv', 'json')) {
 
-  monthly_url <- rvest::url_absolute('monthly/tsv/', ftp_archive())
-  quarterly_url <- rvest::url_absolute('quarterly/tsv/', ftp_archive())
+  type <- match.arg(type)
+  monthly_url <- rvest::url_absolute(paste0('monthly/', type, '/'), ftp_archive())
+  quarterly_url <- rvest::url_absolute(paste0('quarterly/', type, '/'), ftp_archive())
 
   monthly_tbl <- ftp_ls(monthly_url) %>%
     dplyr::mutate(series = 'monthly', .before = 1L)

@@ -204,5 +204,26 @@ import_hgnc_dataset_ <- function(file = latest_archive_url(), ...) {
 #' \dontrun{import_hgnc_dataset()}
 #' @importFrom rlang .data
 #' @export
-import_hgnc_dataset <- import_hgnc_dataset_
+# import_hgnc_dataset memoised in zzz.R
+import_hgnc_dataset <- function(file = latest_archive_url(),
+                                cache_dir = get_cache_dir(),
+                                ...) {
+  if (!is.null(cache_dir)) {
+
+    func <- memoise::memoise(
+      import_hgnc_dataset_,
+      cache =  cachem::cache_disk(max_size = 1024 * 1024^2,
+                                  dir = cache_dir)
+    )
+
+  } else {
+
+    func <- import_hgnc_dataset_
+
+  }
+
+  func(file = file, ...)
+}
+
+
 

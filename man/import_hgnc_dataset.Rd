@@ -4,7 +4,11 @@
 \alias{import_hgnc_dataset}
 \title{Import HGNC data}
 \usage{
-import_hgnc_dataset(file = latest_archive_url(), ...)
+import_hgnc_dataset(
+  file = latest_archive_url(),
+  cache_dir = get_cache_dir(),
+  ...
+)
 }
 \arguments{
 \item{file}{A file or URL of the  complete HGNC data set (in TSV format).}

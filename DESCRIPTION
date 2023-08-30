@@ -11,7 +11,10 @@ Authors@R: c(
       email = "maia.anateresa@gmail.com", role = "aut", 
       comment = c(ORCID = "0000-0002-0454-9207")),
     person("CINTESIS", role = c("cph", "fnd")),
-    person("Pattern Institute", role = c("cph", "fnd"))
+    person("Pattern Institute", role = c("cph", "fnd")),
+    person(given = "Jacob", family = "Munro",
+      email = "jacob.e.munro@gmail.com", role = "aut", 
+      comment = c(ORCID = "0000-0002-2751-0989"))
     )
 Description: A set of routines to quickly download and import the 'HGNC'
     data set on mapping of gene symbols to gene entries in other popular

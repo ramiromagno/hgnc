@@ -4,14 +4,10 @@
 \alias{import_hgnc_dataset}
 \title{Import HGNC data}
 \usage{
-import_hgnc_dataset(
-  file = latest_archive_url(),
-  cache_dir = get_cache_dir(),
-  ...
-)
+import_hgnc_dataset(file = get_hgnc_file(), ...)
 }
 \arguments{
-\item{file}{A file or URL of the  complete HGNC data set (in TSV format).}
+\item{file}{A file or URL of the complete HGNC data set (in TSV format).}
 
 \item{...}{Additional arguments to be passed on to \code{\link[readr:read_delim]{readr::read_tsv()}}.}
 }

@@ -10,9 +10,8 @@
 #'   default, this is inferred from the last part of the URL.
 #' @param ... Additional arguments passed on to [download.file()].
 #'
-#' @md
 #' @export
-download_archive <- function(url = latest_archive_url(), path = getwd(), filename = basename(url), ...) {
+download_archive <- function(url = get_hgnc_file(), path = getwd(), filename = basename(url), ...) {
 
   destfile <- file.path(path, filename)
   utils::download.file(url = url, destfile = destfile, ...)

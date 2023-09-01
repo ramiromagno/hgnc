@@ -64,12 +64,12 @@ library(hgnc)
 # Date of HGNC last update
 last_update()
 
-# Direct URL to the latest archive in TSV format
-(url <- latest_archive_url())
+# Set the HGNC archive file to use for the remainder of the R-session
+use_hgnc_file(file = latest_archive_url())
 
 # Import the data set in tidy tabular format
 # NB: Multiple-value columns are kept as list-columns
-hgnc_dataset <- import_hgnc_dataset(url)
+hgnc_dataset <- import_hgnc_dataset()
 
 dplyr::glimpse(hgnc_dataset)
 ```
@@ -106,22 +106,45 @@ hgnc_dataset %>%
   print(n = Inf)
 ```
 
+### Setting the archive version
+
+By default `{hgnc}` will use the latest version of HGNC archive dataset, as returned by the function `latest_archive_url()`.
+Besides the latest archive, the [HUGO Gene Nomenclature Committee (HGNC)](https://www.genenames.org/) website also provides monthly and quarterly
+updates. 
+You can conveniently get the latest monthly and quarterly updates by running `latest_monthly_url()` or `latest_quarterly_url()`.
+Use `list_archives()` to list the all currently available for download archives.
+The column `url` contains the direct download link that you can pass to `use_hgnc_file()` and `import_hgnc_dataset()` to import the data into R.
+
+```{r}
+list_archives()
+
+use_hgnc_file(file = latest_monthly_url())
+```
+
 ### Downloading to disk
 
 If you prefer to download the data set as a file to disk first, you can use
 `download_archive()`. Then, you can use `import_hgnc_dataset()` to import
 the downloaded file into R.
 
-### Downloading other archives
+### Convert between gene identifiers
 
-Besides the latest archive, the [HUGO Gene Nomenclature Committee
-(HGNC)](https://www.genenames.org/) website also provides monthly and quarterly
-updates. Use `list_archives()` to list the currently available for download
-archives. The column `url` contains the direct download link that you can pass
-to `import_hgnc_dataset()` to import the data into R.
+Two convenience functions are provided to convert between different gene identifiers in the HGNC dataset: `hgnc_join` takes as input a data frame and adds an additional column from the HGNC dataset, and `hgnc_convert` converts a vector from one identifier to another.
 
 ```{r}
-list_archives()
+dplyr::tibble(hgnc_id = c("HGNC:44948", "HGNC:43240", "HGNC:23357", "HGNC:1855", "HGNC:39400")) %>% 
+  # add in gene symbol
+  hgnc_join(by = 'hgnc_id', column = 'symbol') %>% 
+  # add in entrez_id
+  hgnc_join(by = 'hgnc_id', column = 'entrez_id')
+
+# convert a set of hgnc_ids to symbols
+hgnc_ids <- c("HGNC:44948", "HGNC:43240", "HGNC:23357", "HGNC:1855", "HGNC:39400")
+hgnc_convert(hgnc_ids, from = 'hgnc_id', to = 'symbol')
+
+# convert a set of entrez_ids to ensembl_gene_ids
+entrez_ids <- c(79933, 109623458, 158471, 54987, 81631)
+hgnc_convert(entrez_ids, from = 'entrez_id', to = 'ensembl_gene_id')
 ```
 
 ### Caching

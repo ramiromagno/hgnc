@@ -34,7 +34,6 @@ latest_archive <- function(type = c('tsv', 'json')) {
 #' @examples
 #' latest_archive_url()
 #'
-#' @md
 #' @export
 #' @importFrom rlang .data
 latest_archive_url <- function(type = c('tsv', 'json')) {
@@ -57,7 +56,6 @@ latest_archive_url <- function(type = c('tsv', 'json')) {
 #' @examples
 #' latest_monthly_url()
 #'
-#' @md
 #' @export
 #' @importFrom rlang .data
 latest_monthly_url <- function() {
@@ -82,7 +80,6 @@ latest_monthly_url <- function() {
 #' @examples
 #' latest_quarterly_url()
 #'
-#' @md
 #' @export
 #' @importFrom rlang .data
 latest_quarterly_url <- function() {

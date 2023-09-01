@@ -6,6 +6,9 @@
 \usage{
 use_cache_dir(cache_dir = tools::R_user_dir("hgnc", "cache"))
 }
+\arguments{
+\item{cache_dir}{The cache directory to use}
+}
 \description{
 Enable disk-based caching of hgnc results
 }

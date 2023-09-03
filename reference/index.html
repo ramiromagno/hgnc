@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hgnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,26 @@
         <dd>Filter genes by keyword</dd>
       </dl><dl><dt>
           
+          <code><a href="get_cache_dir.html">get_cache_dir()</a></code> 
+        </dt>
+        <dd>Get HGNC cache directory</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_hgnc_file.html">get_hgnc_file()</a></code> 
+        </dt>
+        <dd>Get HGNC TSV file in use</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hgnc_convert.html">hgnc_convert()</a></code> 
+        </dt>
+        <dd>Convert one HGNC identifier to another</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hgnc_join.html">hgnc_join()</a></code> 
+        </dt>
+        <dd>Add a column to a data frame from the hgnc dataset</dd>
+      </dl><dl><dt>
+          
           <code><a href="import_hgnc_dataset.html">import_hgnc_dataset()</a></code> 
         </dt>
         <dd>Import HGNC data</dd>
@@ -81,15 +101,36 @@
         <dd>Latest HGNC archive URL</dd>
       </dl><dl><dt>
           
+          <code><a href="latest_monthly_url.html">latest_monthly_url()</a></code> 
+        </dt>
+        <dd>Latest HGNC monthly URL</dd>
+      </dl><dl><dt>
+          
+          <code><a href="latest_quarterly_url.html">latest_quarterly_url()</a></code> 
+        </dt>
+        <dd>Latest HGNC quarterly URL</dd>
+      </dl><dl><dt>
+          
           <code><a href="list_archives.html">list_archives()</a></code> 
         </dt>
         <dd>List monthly and quarterly archives</dd>
+      </dl><dl><dt>
+          
+          <code><a href="use_cache_dir.html">use_cache_dir()</a></code> 
+        </dt>
+        <dd>Enable disk-based caching of hgnc results</dd>
+      </dl><dl><dt>
+          
+          <code><a href="use_hgnc_file.html">use_hgnc_file()</a></code> 
+        </dt>
+        <dd>Set the HGNC TSV file to use for <code><a href="../reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code>.
+Defaults to the <code><a href="../reference/latest_archive_url.html">latest_archive_url()</a></code>, but can also use <code><a href="../reference/latest_monthly_url.html">latest_monthly_url()</a></code> or <code><a href="../reference/latest_quarterly_url.html">latest_quarterly_url()</a></code>`</dd>
       </dl></div>
   </main></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://rmagno.eu/" class="external-link">Ramiro Magno</a>, Ana-Teresa Maia, <a href="https://cintesis.eu/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/cintesis.svg" height="24"></a>, <a href="https://www.pattern.institute/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/pi-logotype-canonical-whole-v01.svg" height="24"></a>.</p>
+  <p></p><p>Developed by <a href="https://rmagno.eu/" class="external-link">Ramiro Magno</a>, Ana-Teresa Maia, <a href="https://cintesis.eu/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/cintesis.svg" height="24"></a>, <a href="https://www.pattern.institute/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/pi-logotype-canonical-whole-v01.svg" height="24"></a>, Jacob Munro.</p>
 </div>
 
 <div class="pkgdown-footer-right">

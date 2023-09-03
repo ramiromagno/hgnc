@@ -25,7 +25,19 @@
     <loc>https://rmagno.eu/hgnc/reference/filter_by_keyword.html</loc>
   </url>
   <url>
+    <loc>https://rmagno.eu/hgnc/reference/get_cache_dir.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/get_hgnc_file.html</loc>
+  </url>
+  <url>
     <loc>https://rmagno.eu/hgnc/reference/hgnc-package.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/hgnc_convert.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/hgnc_join.html</loc>
   </url>
   <url>
     <loc>https://rmagno.eu/hgnc/reference/import_hgnc_dataset.html</loc>
@@ -40,9 +52,21 @@
     <loc>https://rmagno.eu/hgnc/reference/latest_archive_url.html</loc>
   </url>
   <url>
+    <loc>https://rmagno.eu/hgnc/reference/latest_monthly_url.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/latest_quarterly_url.html</loc>
+  </url>
+  <url>
     <loc>https://rmagno.eu/hgnc/reference/list_archives.html</loc>
   </url>
   <url>
     <loc>https://rmagno.eu/hgnc/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/use_cache_dir.html</loc>
+  </url>
+  <url>
+    <loc>https://rmagno.eu/hgnc/reference/use_hgnc_file.html</loc>
   </url>
 </urlset>

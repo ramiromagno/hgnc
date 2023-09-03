@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">hgnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,21 +105,21 @@
 <span></span>
 <span><span class="co"># Date of HGNC last update</span></span>
 <span><span class="fu"><a href="reference/last_update.html">last_update</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-08-28 03:17:41 UTC"</span></span>
+<span><span class="co">#&gt; [1] "2023-08-31 02:04:51 UTC"</span></span>
 <span></span>
-<span><span class="co"># Direct URL to the latest archive in TSV format</span></span>
-<span><span class="op">(</span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/latest_archive_url.html">latest_archive_url</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt"</span></span>
+<span><span class="co"># Set the HGNC archive file to use for the remainder of the R-session</span></span>
+<span><span class="fu"><a href="reference/use_hgnc_file.html">use_hgnc_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="reference/latest_archive_url.html">latest_archive_url</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; using hgnc file: https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt</span></span>
 <span></span>
 <span><span class="co"># Import the data set in tidy tabular format</span></span>
 <span><span class="co"># NB: Multiple-value columns are kept as list-columns</span></span>
-<span><span class="va">hgnc_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
+<span><span class="va">hgnc_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">hgnc_dataset</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 43,718</span></span>
 <span><span class="co">#&gt; Columns: 55</span></span>
 <span><span class="co">#&gt; $ hgnc_id                  &lt;chr&gt; "HGNC:5", "HGNC:37133", "HGNC:24086", "HGNC:7…</span></span>
-<span><span class="co">#&gt; $ hgnc_id2                 &lt;chr&gt; "5", "37133", "24086", "7", "27057", "23336",…</span></span>
+<span><span class="co">#&gt; $ hgnc_id2                 &lt;int&gt; 5, 37133, 24086, 7, 27057, 23336, 41022, 4152…</span></span>
 <span><span class="co">#&gt; $ symbol                   &lt;chr&gt; "A1BG", "A1BG-AS1", "A1CF", "A2M", "A2M-AS1",…</span></span>
 <span><span class="co">#&gt; $ name                     &lt;chr&gt; "alpha-1-B glycoprotein", "A1BG antisense RNA…</span></span>
 <span><span class="co">#&gt; $ locus_group              &lt;chr&gt; "protein-coding gene", "non-coding RNA", "pro…</span></span>
@@ -143,7 +143,7 @@
 <span><span class="co">#&gt; $ ucsc_id                  &lt;chr&gt; "uc002qsd.5", "uc002qse.3", "uc057tgv.1", "uc…</span></span>
 <span><span class="co">#&gt; $ ena                      &lt;list&gt; NA, "BC040926", "AF271790", &lt;"BX647329", "X6…</span></span>
 <span><span class="co">#&gt; $ refseq_accession         &lt;list&gt; "NM_130786", "NR_015380", "NM_014576", "NM_0…</span></span>
-<span><span class="co">#&gt; $ ccds_id                  &lt;list&gt; "CCDS12976", NA, &lt;"CCDS7241", "CCDS7242", "C…</span></span>
+<span><span class="co">#&gt; $ ccds_id                  &lt;list&gt; "CCDS12976", NA, &lt;"CCDS7242", "CCDS73133", "…</span></span>
 <span><span class="co">#&gt; $ uniprot_ids              &lt;list&gt; "P04217", NA, "Q9NQ94", "P01023", NA, "A8K2U…</span></span>
 <span><span class="co">#&gt; $ pubmed_id                &lt;list&gt; "2591067", NA, &lt;"11815617", "11072063"&gt;, &lt;"2…</span></span>
 <span><span class="co">#&gt; $ mgd_id                   &lt;list&gt; "MGI:2152878", NA, "MGI:1917115", "MGI:24491…</span></span>
@@ -179,18 +179,18 @@
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'hgnc_id'</span>, <span class="st">'hgnc_id2'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 43,718 × 2</span></span>
 <span><span class="co">#&gt;    hgnc_id    hgnc_id2</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   </span></span>
-<span><span class="co">#&gt;  1 HGNC:5     5       </span></span>
-<span><span class="co">#&gt;  2 HGNC:37133 37133   </span></span>
-<span><span class="co">#&gt;  3 HGNC:24086 24086   </span></span>
-<span><span class="co">#&gt;  4 HGNC:7     7       </span></span>
-<span><span class="co">#&gt;  5 HGNC:27057 27057   </span></span>
-<span><span class="co">#&gt;  6 HGNC:23336 23336   </span></span>
-<span><span class="co">#&gt;  7 HGNC:41022 41022   </span></span>
-<span><span class="co">#&gt;  8 HGNC:41523 41523   </span></span>
-<span><span class="co">#&gt;  9 HGNC:8     8       </span></span>
-<span><span class="co">#&gt; 10 HGNC:30005 30005   </span></span>
-<span><span class="co">#&gt; # ℹ 43,708 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 HGNC:5            5</span></span>
+<span><span class="co">#&gt;  2 HGNC:37133    37133</span></span>
+<span><span class="co">#&gt;  3 HGNC:24086    24086</span></span>
+<span><span class="co">#&gt;  4 HGNC:7            7</span></span>
+<span><span class="co">#&gt;  5 HGNC:27057    27057</span></span>
+<span><span class="co">#&gt;  6 HGNC:23336    23336</span></span>
+<span><span class="co">#&gt;  7 HGNC:41022    41022</span></span>
+<span><span class="co">#&gt;  8 HGNC:41523    41523</span></span>
+<span><span class="co">#&gt;  9 HGNC:8            8</span></span>
+<span><span class="co">#&gt; 10 HGNC:30005    30005</span></span>
+<span><span class="co">#&gt; # … with 43,708 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="locus-groups">Locus groups<a class="anchor" aria-label="anchor" href="#locus-groups"></a>
@@ -225,8 +225,8 @@
 <span><span class="co">#&gt;  6 non-coding RNA      RNA, ribosomal                60</span></span>
 <span><span class="co">#&gt;  7 non-coding RNA      RNA, small nuclear            50</span></span>
 <span><span class="co">#&gt;  8 non-coding RNA      RNA, misc                     29</span></span>
-<span><span class="co">#&gt;  9 non-coding RNA      RNA, Y                         4</span></span>
-<span><span class="co">#&gt; 10 non-coding RNA      RNA, vault                     4</span></span>
+<span><span class="co">#&gt;  9 non-coding RNA      RNA, vault                     4</span></span>
+<span><span class="co">#&gt; 10 non-coding RNA      RNA, Y                         4</span></span>
 <span><span class="co">#&gt; 11 other               immunoglobulin gene          230</span></span>
 <span><span class="co">#&gt; 12 other               T cell receptor gene         206</span></span>
 <span><span class="co">#&gt; 13 other               readthrough                  147</span></span>
@@ -242,17 +242,12 @@
 <span><span class="co">#&gt; 23 pseudogene          T cell receptor pseudogene    37</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="downloading-to-disk">Downloading to disk<a class="anchor" aria-label="anchor" href="#downloading-to-disk"></a>
+<h3 id="setting-the-archive-version">Setting the archive version<a class="anchor" aria-label="anchor" href="#setting-the-archive-version"></a>
 </h3>
-<p>If you prefer to download the data set as a file to disk first, you can use <code><a href="reference/download_archive.html">download_archive()</a></code>. Then, you can use <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> to import the downloaded file into R.</p>
-</div>
-<div class="section level3">
-<h3 id="downloading-other-archives">Downloading other archives<a class="anchor" aria-label="anchor" href="#downloading-other-archives"></a>
-</h3>
-<p>Besides the latest archive, the <a href="https://www.genenames.org/" class="external-link">HUGO Gene Nomenclature Committee (HGNC)</a> website also provides monthly and quarterly updates. Use <code><a href="reference/list_archives.html">list_archives()</a></code> to list the currently available for download archives. The column <code>url</code> contains the direct download link that you can pass to <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> to import the data into R.</p>
+<p>By default <a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> will use the latest version of HGNC archive dataset, as returned by the function <code><a href="reference/latest_archive_url.html">latest_archive_url()</a></code>. Besides the latest archive, the <a href="https://www.genenames.org/" class="external-link">HUGO Gene Nomenclature Committee (HGNC)</a> website also provides monthly and quarterly updates. You can conveniently get the latest monthly and quarterly updates by running <code><a href="reference/latest_monthly_url.html">latest_monthly_url()</a></code> or <code><a href="reference/latest_quarterly_url.html">latest_quarterly_url()</a></code>. Use <code><a href="reference/list_archives.html">list_archives()</a></code> to list the all currently available for download archives. The column <code>url</code> contains the direct download link that you can pass to <code><a href="reference/use_hgnc_file.html">use_hgnc_file()</a></code> and <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> to import the data into R.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/list_archives.html">list_archives</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 106 × 7</span></span>
+<span><span class="co">#&gt; # A tibble: 107 × 7</span></span>
 <span><span class="co">#&gt;    series  dataset           file     date       size  last_modified       url  </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;chr&gt;    &lt;date&gt;     &lt;chr&gt; &lt;dttm&gt;              &lt;chr&gt;</span></span>
 <span><span class="co">#&gt;  1 monthly hgnc_complete_set hgnc_co… 2021-03-01 14M   2023-05-01 00:05:00 http…</span></span>
@@ -265,7 +260,53 @@
 <span><span class="co">#&gt;  8 monthly hgnc_complete_set hgnc_co… 2021-10-01 15M   2023-05-01 00:05:00 http…</span></span>
 <span><span class="co">#&gt;  9 monthly hgnc_complete_set hgnc_co… 2021-11-01 15M   2023-05-01 00:05:00 http…</span></span>
 <span><span class="co">#&gt; 10 monthly hgnc_complete_set hgnc_co… 2021-12-01 15M   2023-05-01 00:05:00 http…</span></span>
-<span><span class="co">#&gt; # ℹ 96 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # … with 97 more rows</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/use_hgnc_file.html">use_hgnc_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="reference/latest_monthly_url.html">latest_monthly_url</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; using hgnc file: https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/archive/monthly/tsv/hgnc_complete_set_2023-08-01.txt</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="downloading-to-disk">Downloading to disk<a class="anchor" aria-label="anchor" href="#downloading-to-disk"></a>
+</h3>
+<p>If you prefer to download the data set as a file to disk first, you can use <code><a href="reference/download_archive.html">download_archive()</a></code>. Then, you can use <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> to import the downloaded file into R.</p>
+</div>
+<div class="section level3">
+<h3 id="convert-between-gene-identifiers">Convert between gene identifiers<a class="anchor" aria-label="anchor" href="#convert-between-gene-identifiers"></a>
+</h3>
+<p>Two convenience functions are provided to convert between different gene identifiers in the HGNC dataset: <code>hgnc_join</code> takes as input a data frame and adds an additional column from the HGNC dataset, and <code>hgnc_convert</code> converts a vector from one identifier to another.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>hgnc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HGNC:44948"</span>, <span class="st">"HGNC:43240"</span>, <span class="st">"HGNC:23357"</span>, <span class="st">"HGNC:1855"</span>, <span class="st">"HGNC:39400"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># add in gene symbol</span></span>
+<span>  <span class="fu"><a href="reference/hgnc_join.html">hgnc_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">'hgnc_id'</span>, column <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># add in entrez_id</span></span>
+<span>  <span class="fu"><a href="reference/hgnc_join.html">hgnc_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">'hgnc_id'</span>, column <span class="op">=</span> <span class="st">'entrez_id'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 3</span></span>
+<span><span class="co">#&gt;   hgnc_id    symbol    entrez_id</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;         &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 HGNC:44948 GOLGA2P6     729668</span></span>
+<span><span class="co">#&gt; 2 HGNC:43240 RNA5SP340 100873603</span></span>
+<span><span class="co">#&gt; 3 HGNC:23357 MCTS1         28985</span></span>
+<span><span class="co">#&gt; 4 HGNC:1855  CENPCP1        1061</span></span>
+<span><span class="co">#&gt; 5 HGNC:39400 ASNSP4    100419423</span></span>
+<span></span>
+<span><span class="co"># convert a set of hgnc_ids to symbols</span></span>
+<span><span class="va">hgnc_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HGNC:44948"</span>, <span class="st">"HGNC:43240"</span>, <span class="st">"HGNC:23357"</span>, <span class="st">"HGNC:1855"</span>, <span class="st">"HGNC:39400"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/hgnc_convert.html">hgnc_convert</a></span><span class="op">(</span><span class="va">hgnc_ids</span>, from <span class="op">=</span> <span class="st">'hgnc_id'</span>, to <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "GOLGA2P6"  "RNA5SP340" "MCTS1"     "CENPCP1"   "ASNSP4"</span></span>
+<span></span>
+<span><span class="co"># convert a set of entrez_ids to ensembl_gene_ids</span></span>
+<span><span class="va">entrez_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">79933</span>, <span class="fl">109623458</span>, <span class="fl">158471</span>, <span class="fl">54987</span>, <span class="fl">81631</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/hgnc_convert.html">hgnc_convert</a></span><span class="op">(</span><span class="va">entrez_ids</span>, from <span class="op">=</span> <span class="st">'entrez_id'</span>, to <span class="op">=</span> <span class="st">'ensembl_gene_id'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "ENSG00000166317" NA                "ENSG00000106772" "ENSG00000162384"</span></span>
+<span><span class="co">#&gt; [5] "ENSG00000140941"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
+</h3>
+<p>By default <a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> will use memory-based caching through the package <a href="https://memoise.r-lib.org" class="external-link">memoise</a>. This will ensure that time consuming downloads are not rerun unnecessarily during a single R-session. Persistent disk based caching can also be enabled using the function <code>use_cache_dir</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/use_cache_dir.html">use_cache_dir</a></span><span class="op">(</span>cache_dir <span class="op">=</span>  <span class="st">'./hgnc_cache'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; using hgnc cache dir: ./hgnc_cache</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -274,7 +315,7 @@
 <p>You could go to <a href="https://www.genenames.org" class="external-link">www.genenames.org</a> and download the files yourself. So why the need for this R package?</p>
 <p><a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> really is just a convenience package. The main advantage is that the function <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> reads in the data in tabular format with all the columns with the appropriate type (so you don’t have to specify it yourself). As an extra step, those variables that contain multiple values are encoded as list-columns.</p>
 <p>Remember that list-columns can be expanded with <code>tidyr::unnest()</code>. E.g., <code>alias_symbol</code> is a list-column containing multiple alternative aliases to the standard <code>symbol</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">'TP53'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'symbol'</span>, <span class="st">'alias_symbol'</span><span class="op">)</span><span class="op">)</span></span>
@@ -294,52 +335,52 @@
 <span><span class="co">#&gt; 2 TP53   LFS1</span></span></code></pre></div>
 <p>In addition, we also provide the function <code><a href="reference/filter_by_keyword.html">filter_by_keyword()</a></code> that allows filtering the data set based on a keyword or regular expression. By default this function will look into all columns that contain gene symbols or names (<code>symbol</code>, <code>name</code>, <code>alias_symbol</code>, <code>alias_name</code>, <code>prev_symbol</code> and <code>prev_name</code>). It works automatically with list-columns too.</p>
 <p>Look for entries in the data set that contain the keyword <code>"TP53"</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filter_by_keyword.html">filter_by_keyword</a></span><span class="op">(</span><span class="st">'TP53'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 66 × 4</span></span>
 <span><span class="co">#&gt;    hgnc_id    hgnc_id2 symbol      name                                         </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                                        </span></span>
-<span><span class="co">#&gt;  1 HGNC:49685 49685    ABHD15-AS1  ABHD15 antisense RNA 1                       </span></span>
-<span><span class="co">#&gt;  2 HGNC:20679 20679    ANO9        anoctamin 9                                  </span></span>
-<span><span class="co">#&gt;  3 HGNC:40093 40093    BCAR3-AS1   BCAR3 antisense RNA 1                        </span></span>
-<span><span class="co">#&gt;  4 HGNC:13276 13276    EI24        EI24 autophagy associated transmembrane prot…</span></span>
-<span><span class="co">#&gt;  5 HGNC:3345  3345     ENC1        ectodermal-neural cortex 1                   </span></span>
-<span><span class="co">#&gt;  6 HGNC:27919 27919    ERVMER61-1  endogenous retrovirus group MER61 member 1   </span></span>
-<span><span class="co">#&gt;  7 HGNC:56226 56226    FAM169A-AS1 FAM169A antisense RNA 1                      </span></span>
-<span><span class="co">#&gt;  8 HGNC:4136  4136     GAMT        guanidinoacetate N-methyltransferase         </span></span>
-<span><span class="co">#&gt;  9 HGNC:54868 54868    KLRK1-AS1   KLRK1 antisense RNA 1                        </span></span>
-<span><span class="co">#&gt; 10 HGNC:6568  6568     LGALS7      galectin 7                                   </span></span>
-<span><span class="co">#&gt; # ℹ 56 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                                        </span></span>
+<span><span class="co">#&gt;  1 HGNC:49685    49685 ABHD15-AS1  ABHD15 antisense RNA 1                       </span></span>
+<span><span class="co">#&gt;  2 HGNC:20679    20679 ANO9        anoctamin 9                                  </span></span>
+<span><span class="co">#&gt;  3 HGNC:40093    40093 BCAR3-AS1   BCAR3 antisense RNA 1                        </span></span>
+<span><span class="co">#&gt;  4 HGNC:13276    13276 EI24        EI24 autophagy associated transmembrane prot…</span></span>
+<span><span class="co">#&gt;  5 HGNC:3345      3345 ENC1        ectodermal-neural cortex 1                   </span></span>
+<span><span class="co">#&gt;  6 HGNC:27919    27919 ERVMER61-1  endogenous retrovirus group MER61 member 1   </span></span>
+<span><span class="co">#&gt;  7 HGNC:56226    56226 FAM169A-AS1 FAM169A antisense RNA 1                      </span></span>
+<span><span class="co">#&gt;  8 HGNC:4136      4136 GAMT        guanidinoacetate N-methyltransferase         </span></span>
+<span><span class="co">#&gt;  9 HGNC:54868    54868 KLRK1-AS1   KLRK1 antisense RNA 1                        </span></span>
+<span><span class="co">#&gt; 10 HGNC:6568      6568 LGALS7      galectin 7                                   </span></span>
+<span><span class="co">#&gt; # … with 56 more rows</span></span></code></pre></div>
 <p>Restrict the search to the <code>symbol</code> column:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filter_by_keyword.html">filter_by_keyword</a></span><span class="op">(</span><span class="st">'TP53'</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 23 × 4</span></span>
 <span><span class="co">#&gt;    hgnc_id    hgnc_id2 symbol    name                                           </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;                                          </span></span>
-<span><span class="co">#&gt;  1 HGNC:11998 11998    TP53      tumor protein p53                              </span></span>
-<span><span class="co">#&gt;  2 HGNC:29984 29984    TP53AIP1  tumor protein p53 regulated apoptosis inducing…</span></span>
-<span><span class="co">#&gt;  3 HGNC:11999 11999    TP53BP1   tumor protein p53 binding protein 1            </span></span>
-<span><span class="co">#&gt;  4 HGNC:12000 12000    TP53BP2   tumor protein p53 binding protein 2            </span></span>
-<span><span class="co">#&gt;  5 HGNC:16328 16328    TP53BP2P1 tumor protein p53 binding protein 2 pseudogene…</span></span>
-<span><span class="co">#&gt;  6 HGNC:43652 43652    TP53COR1  tumor protein p53 pathway corepressor 1        </span></span>
-<span><span class="co">#&gt;  7 HGNC:19373 19373    TP53I3    tumor protein p53 inducible protein 3          </span></span>
-<span><span class="co">#&gt;  8 HGNC:16842 16842    TP53I11   tumor protein p53 inducible protein 11         </span></span>
-<span><span class="co">#&gt;  9 HGNC:25102 25102    TP53I13   tumor protein p53 inducible protein 13         </span></span>
-<span><span class="co">#&gt; 10 HGNC:18022 18022    TP53INP1  tumor protein p53 inducible nuclear protein 1  </span></span>
-<span><span class="co">#&gt; # ℹ 13 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;                                          </span></span>
+<span><span class="co">#&gt;  1 HGNC:11998    11998 TP53      tumor protein p53                              </span></span>
+<span><span class="co">#&gt;  2 HGNC:29984    29984 TP53AIP1  tumor protein p53 regulated apoptosis inducing…</span></span>
+<span><span class="co">#&gt;  3 HGNC:11999    11999 TP53BP1   tumor protein p53 binding protein 1            </span></span>
+<span><span class="co">#&gt;  4 HGNC:12000    12000 TP53BP2   tumor protein p53 binding protein 2            </span></span>
+<span><span class="co">#&gt;  5 HGNC:16328    16328 TP53BP2P1 tumor protein p53 binding protein 2 pseudogene…</span></span>
+<span><span class="co">#&gt;  6 HGNC:43652    43652 TP53COR1  tumor protein p53 pathway corepressor 1        </span></span>
+<span><span class="co">#&gt;  7 HGNC:19373    19373 TP53I3    tumor protein p53 inducible protein 3          </span></span>
+<span><span class="co">#&gt;  8 HGNC:16842    16842 TP53I11   tumor protein p53 inducible protein 11         </span></span>
+<span><span class="co">#&gt;  9 HGNC:25102    25102 TP53I13   tumor protein p53 inducible protein 13         </span></span>
+<span><span class="co">#&gt; 10 HGNC:18022    18022 TP53INP1  tumor protein p53 inducible nuclear protein 1  </span></span>
+<span><span class="co">#&gt; # … with 13 more rows</span></span></code></pre></div>
 <p>Search for the whole word <code>"TP53"</code> exactly by taking advantage of regular expressions:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filter_by_keyword.html">filter_by_keyword</a></span><span class="op">(</span><span class="st">'^TP53$'</span>, cols <span class="op">=</span> <span class="st">'symbol'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
 <span><span class="co">#&gt;   hgnc_id    hgnc_id2 symbol name             </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;            </span></span>
-<span><span class="co">#&gt; 1 HGNC:11998 11998    TP53   tumor protein p53</span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 HGNC:11998    11998 TP53   tumor protein p53</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citing-the-hgnc">Citing the HGNC<a class="anchor" aria-label="anchor" href="#citing-the-hgnc"></a>
@@ -391,6 +432,7 @@
 <a href="https://cintesis.eu/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/cintesis.svg" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 <li>
 <a href="https://www.pattern.institute/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/pi-logotype-canonical-whole-v01.svg" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<li>Jacob Munro <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2751-0989" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -407,7 +449,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://rmagno.eu/" class="external-link">Ramiro Magno</a>, Ana-Teresa Maia, <a href="https://cintesis.eu/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/cintesis.svg" height="24"></a>, <a href="https://www.pattern.institute/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/pi-logotype-canonical-whole-v01.svg" height="24"></a>.</p>
+<p>Developed by <a href="https://rmagno.eu/" class="external-link">Ramiro Magno</a>, Ana-Teresa Maia, <a href="https://cintesis.eu/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/cintesis.svg" height="24"></a>, <a href="https://www.pattern.institute/" class="external-link"><img src="https://rmagno.eu/hgnc/reference/figures/pi-logotype-canonical-whole-v01.svg" height="24"></a>, Jacob Munro.</p>
 </div>
 
 <div class="pkgdown-footer-right">

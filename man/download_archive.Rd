@@ -5,7 +5,7 @@
 \title{Download HGNC dataset}
 \usage{
 download_archive(
-  url = latest_archive_url(),
+  url = get_hgnc_file(),
   path = getwd(),
   filename = basename(url),
   ...

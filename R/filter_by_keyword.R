@@ -39,7 +39,6 @@
 #'   dplyr::select(1:4)
 #' }
 #'
-#' @md
 #' @export
 filter_by_keyword <-
   function(tbl,

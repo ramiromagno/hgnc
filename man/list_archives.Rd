@@ -4,7 +4,10 @@
 \alias{list_archives}
 \title{List monthly and quarterly archives}
 \usage{
-list_archives()
+list_archives(type = c("tsv", "json"))
+}
+\arguments{
+\item{type}{The format of the archive: \code{"tsv"} or \code{"json"}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} of available archives for download.

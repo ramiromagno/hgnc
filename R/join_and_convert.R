@@ -2,7 +2,7 @@
 # return a table that maps from a key column to another columns in the hgnc_dataset
 get_hgnc_key_table <- function(key,
                                column,
-                               drop_non_unique = TRUE,
+                               one_to_many = FALSE,
                                file = get_hgnc_file()) {
 
   key_table <-
@@ -14,23 +14,18 @@ get_hgnc_key_table <- function(key,
     dplyr::filter(!is.na(key)) %>%
     dplyr::distinct()
 
-  is_unique_key <- nrow(key_table) == dplyr::n_distinct(key_table$key)
 
-  if (!is_unique_key & drop_non_unique) {
+  if (one_to_many) {
 
-    message('dropping non-unique keys in "', key, '"')
+    key_table <- tidyr::chop(key_table, column)
+
+  } else {
+
     key_table <-
       key_table %>%
-      dplyr::add_count(key) %>%
-      dplyr::filter(n == 1) %>%
-      dplyr::select(-n)
-
-  } else if (!is_unique_key){
-
-    message('key "', key, '" is not unique, returning list-columns')
-    key_table <-
-      key_table %>%
-      tidyr::chop(-key)
+      dplyr::add_count(key, name = 'nkey') %>%
+      dplyr::filter(nkey == 1) %>%
+      dplyr::select(-nkey)
 
   }
 
@@ -45,7 +40,8 @@ get_hgnc_key_table <- function(key,
 #' @param .data The data frame to join with
 #' @param by The column to join by, as in [dplyr::left_join()]
 #' @param column The column to add to the data frame from the HGNC dataset
-#' @param drop_non_unique A boolean value indicating whether non-unique rows should be dropped. If set to `FALSE` and the 'by' column is not unique, the added column will be a list-column.
+#' @param one_to_many A boolean value indicating whether cases where the 'by' column maps to multiple valuesof the selected column should be returned.
+#'  If set to `FASLE` (the default), such one-to-many cases will yield NA. If set to `TRUE`, the returned column will be a list of vectors of varying length.
 #' @param file A file or URL of the complete HGNC data set (in TSV format), as used by [import_hgnc_dataset()].
 #' @return A data frame with the HGNC column added
 #' @examples
@@ -62,7 +58,7 @@ get_hgnc_key_table <- function(key,
 hgnc_join <- function(.data,
                       by = 'hgnc_id',
                       column = 'symbol',
-                      drop_non_unique = TRUE,
+                      one_to_many = FALSE,
                       file = get_hgnc_file()) {
 
   stopifnot(
@@ -72,14 +68,14 @@ hgnc_join <- function(.data,
     by %in% names(hgnc_col_types),
     column %in% names(hgnc_col_types),
     by != column,
-    rlang::is_bool(drop_non_unique),
+    rlang::is_bool(one_to_many),
     rlang::is_scalar_character(file)
   )
 
   key_table <- get_hgnc_key_table(
     key = unname(by),
     column = column,
-    drop_non_unique = drop_non_unique,
+    one_to_many = one_to_many,
     file = file
   )
 
@@ -96,7 +92,8 @@ hgnc_join <- function(.data,
 #' @param x A vector of values to convert from
 #' @param from The HGNC identifier to convert from, must be a column name in the HGNC dataset
 #' @param to The HGNC identifier to convert to, must be a column name in the HGNC dataset
-#' @param drop_non_unique A boolean value indicating whether non-uniquely mapped values of from should be dropped. If set to `FALSE` and there are non-unique mappings, the returned value will be a list.
+#' @param one_to_many A boolean value indicating whether cases where the 'from' identifier maps to multiple 'to' values should be returned.
+#'  If set to `FASLE` (the default), such one-to-many cases will yield NA. If set to `TRUE`, the returned value will be a list of vectors of varying length.
 #' @param file A file or URL of the complete HGNC data set (in TSV format), as used by [import_hgnc_dataset()].
 #' @return A list or vector of converted values
 #' @examples
@@ -114,7 +111,7 @@ hgnc_join <- function(.data,
 hgnc_convert <- function(x,
                          from = 'hgnc_id',
                          to = 'symbol',
-                         drop_non_unique = TRUE,
+                         one_to_many = FALSE,
                          file = get_hgnc_file()) {
 
   stopifnot(
@@ -124,7 +121,7 @@ hgnc_convert <- function(x,
     from %in% names(hgnc_col_types),
     to %in% names(hgnc_col_types),
     from != to,
-    rlang::is_bool(drop_non_unique),
+    rlang::is_bool(one_to_many),
     rlang::is_scalar_character(file)
   )
 
@@ -132,12 +129,12 @@ hgnc_convert <- function(x,
     get_hgnc_key_table(
       key = from,
       column = to,
-      drop_non_unique = drop_non_unique,
+      one_to_many = one_to_many,
       file = file
     ) %>%
     dplyr::rename(
-      from = all_of(from),
-      to = all_of(to)
+      from = dplyr::all_of(from),
+      to = dplyr::all_of(to)
     )
 
   with(key_table, to[match(x, from)])

@@ -8,7 +8,7 @@ hgnc_join(
   .data,
   by = "hgnc_id",
   column = "symbol",
-  drop_non_unique = TRUE,
+  one_to_many = FALSE,
   file = get_hgnc_file()
 )
 }
@@ -19,7 +19,8 @@ hgnc_join(
 
 \item{column}{The column to add to the data frame from the HGNC dataset}
 
-\item{drop_non_unique}{A boolean value indicating whether non-unique rows should be dropped. If set to \code{FALSE} and the 'by' column is not unique, the added column will be a list-column.}
+\item{one_to_many}{A boolean value indicating whether cases where the 'by' column maps to multiple valuesof the selected column should be returned.
+If set to \code{FASLE} (the default), such one-to-many cases will yield NA. If set to \code{TRUE}, the returned column will be a list of vectors of varying length.}
 
 \item{file}{A file or URL of the complete HGNC data set (in TSV format), as used by \code{\link[=import_hgnc_dataset]{import_hgnc_dataset()}}.}
 }

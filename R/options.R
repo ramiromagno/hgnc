@@ -57,7 +57,6 @@ get_cache_dir <- function() {
 #' @export
 use_hgnc_file <- function(file = latest_archive_url()) {
 
-
   if (!is.null(file)) {
     stopifnot(
       rlang::is_scalar_character(file)

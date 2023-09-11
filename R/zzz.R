@@ -1,6 +1,6 @@
 
 
-.onLoad <- function(pkgname, libname) {
+.onLoad <- function(libname, pkgname) {
 
   # create memory-cached version of import_hgnc_dataset
   import_hgnc_dataset <<- memoise::memoise(

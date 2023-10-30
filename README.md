@@ -54,7 +54,7 @@ library(hgnc)
 
 # Date of HGNC last update
 last_update()
-#> [1] "2023-08-31 02:04:51 UTC"
+#> [1] "2023-10-30 03:31:41 UTC"
 
 # Set the HGNC archive file to use for the remainder of the R-session
 use_hgnc_file(file = latest_archive_url())
@@ -65,7 +65,7 @@ use_hgnc_file(file = latest_archive_url())
 hgnc_dataset <- import_hgnc_dataset()
 
 dplyr::glimpse(hgnc_dataset)
-#> Rows: 43,718
+#> Rows: 43,736
 #> Columns: 55
 #> $ hgnc_id                  <chr> "HGNC:5", "HGNC:37133", "HGNC:24086", "HGNC:7…
 #> $ hgnc_id2                 <int> 5, 37133, 24086, 7, 27057, 23336, 41022, 4152…
@@ -92,7 +92,7 @@ dplyr::glimpse(hgnc_dataset)
 #> $ ucsc_id                  <chr> "uc002qsd.5", "uc002qse.3", "uc057tgv.1", "uc…
 #> $ ena                      <list> NA, "BC040926", "AF271790", <"BX647329", "X6…
 #> $ refseq_accession         <list> "NM_130786", "NR_015380", "NM_014576", "NM_0…
-#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7242", "CCDS73133", "…
+#> $ ccds_id                  <list> "CCDS12976", NA, <"CCDS7242", "CCDS7241", "C…
 #> $ uniprot_ids              <list> "P04217", NA, "Q9NQ94", "P01023", NA, "A8K2U…
 #> $ pubmed_id                <list> "2591067", NA, <"11815617", "11072063">, <"2…
 #> $ mgd_id                   <list> "MGI:2152878", NA, "MGI:1917115", "MGI:24491…
@@ -133,7 +133,7 @@ found elsewhere that they are stripped of this prefix, so the column
 ``` r
 hgnc_dataset %>%
   dplyr::select(c('hgnc_id', 'hgnc_id2'))
-#> # A tibble: 43,718 × 2
+#> # A tibble: 43,736 × 2
 #>    hgnc_id    hgnc_id2
 #>    <chr>         <int>
 #>  1 HGNC:5            5
@@ -146,7 +146,7 @@ hgnc_dataset %>%
 #>  8 HGNC:41523    41523
 #>  9 HGNC:8            8
 #> 10 HGNC:30005    30005
-#> # … with 43,708 more rows
+#> # ℹ 43,726 more rows
 ```
 
 ### Locus groups
@@ -162,8 +162,8 @@ hgnc_dataset %>%
 #>   locus_group             n
 #>   <chr>               <int>
 #> 1 protein-coding gene 19278
-#> 2 pseudogene          14362
-#> 3 non-coding RNA       9087
+#> 2 pseudogene          14376
+#> 3 non-coding RNA       9091
 #> 4 other                 991
 ```
 
@@ -179,7 +179,7 @@ hgnc_dataset %>%
 #> # Groups:   locus_group [4]
 #>    locus_group         locus_type                     n
 #>    <chr>               <chr>                      <int>
-#>  1 non-coding RNA      RNA, long non-coding        5750
+#>  1 non-coding RNA      RNA, long non-coding        5754
 #>  2 non-coding RNA      RNA, micro                  1912
 #>  3 non-coding RNA      RNA, transfer                591
 #>  4 non-coding RNA      RNA, small nucleolar         568
@@ -187,8 +187,8 @@ hgnc_dataset %>%
 #>  6 non-coding RNA      RNA, ribosomal                60
 #>  7 non-coding RNA      RNA, small nuclear            50
 #>  8 non-coding RNA      RNA, misc                     29
-#>  9 non-coding RNA      RNA, vault                     4
-#> 10 non-coding RNA      RNA, Y                         4
+#>  9 non-coding RNA      RNA, Y                         4
+#> 10 non-coding RNA      RNA, vault                     4
 #> 11 other               immunoglobulin gene          230
 #> 12 other               T cell receptor gene         206
 #> 13 other               readthrough                  147
@@ -199,7 +199,7 @@ hgnc_dataset %>%
 #> 18 other               region                        38
 #> 19 other               virus integration site         8
 #> 20 protein-coding gene gene with protein product  19278
-#> 21 pseudogene          pseudogene                 14122
+#> 21 pseudogene          pseudogene                 14136
 #> 22 pseudogene          immunoglobulin pseudogene    203
 #> 23 pseudogene          T cell receptor pseudogene    37
 ```
@@ -219,7 +219,7 @@ direct download link that you can pass to `use_hgnc_file()` and
 
 ``` r
 list_archives()
-#> # A tibble: 107 × 7
+#> # A tibble: 182 × 7
 #>    series  dataset           file     date       size  last_modified       url  
 #>    <chr>   <chr>             <chr>    <date>     <chr> <dttm>              <chr>
 #>  1 monthly hgnc_complete_set hgnc_co… 2021-03-01 14M   2023-05-01 00:05:00 http…
@@ -232,10 +232,10 @@ list_archives()
 #>  8 monthly hgnc_complete_set hgnc_co… 2021-10-01 15M   2023-05-01 00:05:00 http…
 #>  9 monthly hgnc_complete_set hgnc_co… 2021-11-01 15M   2023-05-01 00:05:00 http…
 #> 10 monthly hgnc_complete_set hgnc_co… 2021-12-01 15M   2023-05-01 00:05:00 http…
-#> # … with 97 more rows
+#> # ℹ 172 more rows
 
 use_hgnc_file(file = latest_monthly_url())
-#> using hgnc file: https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/archive/monthly/tsv/hgnc_complete_set_2023-08-01.txt
+#> using hgnc file: https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/archive/monthly/tsv/hgnc_complete_set_2023-10-01.txt
 ```
 
 ### Downloading to disk
@@ -351,7 +351,7 @@ hgnc_dataset %>%
 #>  8 HGNC:4136      4136 GAMT        guanidinoacetate N-methyltransferase         
 #>  9 HGNC:54868    54868 KLRK1-AS1   KLRK1 antisense RNA 1                        
 #> 10 HGNC:6568      6568 LGALS7      galectin 7                                   
-#> # … with 56 more rows
+#> # ℹ 56 more rows
 ```
 
 Restrict the search to the `symbol` column:
@@ -373,7 +373,7 @@ hgnc_dataset %>%
 #>  8 HGNC:16842    16842 TP53I11   tumor protein p53 inducible protein 11         
 #>  9 HGNC:25102    25102 TP53I13   tumor protein p53 inducible protein 13         
 #> 10 HGNC:18022    18022 TP53INP1  tumor protein p53 inducible nuclear protein 1  
-#> # … with 13 more rows
+#> # ℹ 13 more rows
 ```
 
 Search for the whole word `"TP53"` exactly by taking advantage of

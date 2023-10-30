@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Jacob Munro \email{jacob.e.munro@gmail.com} (\href{https://orcid.org/0000-0002-2751-0989}{ORCID})
   \item Ana-Teresa Maia \email{maia.anateresa@gmail.com} (\href{https://orcid.org/0000-0002-0454-9207}{ORCID})
   \item Jacob Munro \email{jacob.e.munro@gmail.com} (\href{https://orcid.org/0000-0002-2751-0989}{ORCID})
 }

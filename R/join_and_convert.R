@@ -25,7 +25,7 @@ get_hgnc_key_table <- function(key,
       key_table %>%
       dplyr::add_count(key, name = 'nkey') %>%
       dplyr::filter(nkey == 1) %>%
-      dplyr::select(-nkey)
+      dplyr::select(-"nkey")
 
   }
 
@@ -37,12 +37,15 @@ get_hgnc_key_table <- function(key,
 
 #' Add a column to a data frame from the hgnc dataset
 #'
-#' @param .data The data frame to join with
-#' @param by The column to join by, as in [dplyr::left_join()]
+#' @param .data The data frame to join with.
+#' @param by The column to join by, as in [dplyr::left_join()].
 #' @param column The column to add to the data frame from the HGNC dataset
-#' @param one_to_many A boolean value indicating whether cases where the 'by' column maps to multiple valuesof the selected column should be returned.
-#'  If set to `FASLE` (the default), such one-to-many cases will yield NA. If set to `TRUE`, the returned column will be a list of vectors of varying length.
-#' @param file A file or URL of the complete HGNC data set (in TSV format), as used by [import_hgnc_dataset()].
+#' @param one_to_many A boolean value indicating whether cases where the 'by'
+#'   column maps to multiple valuesof the selected column should be returned. If
+#'   set to `FASLE` (the default), such one-to-many cases will yield NA. If set
+#'   to `TRUE`, the returned column will be a list of vectors of varying length.
+#' @param file A file or URL of the complete HGNC data set (in TSV format), as
+#'   used by [import_hgnc_dataset()].
 #' @return A data frame with the HGNC column added
 #' @examples
 #' \dontrun{
@@ -90,11 +93,16 @@ hgnc_join <- function(.data,
 #' Convert one HGNC identifier to another
 #'
 #' @param x A vector of values to convert from
-#' @param from The HGNC identifier to convert from, must be a column name in the HGNC dataset
-#' @param to The HGNC identifier to convert to, must be a column name in the HGNC dataset
-#' @param one_to_many A boolean value indicating whether cases where the 'from' identifier maps to multiple 'to' values should be returned.
-#'  If set to `FASLE` (the default), such one-to-many cases will yield NA. If set to `TRUE`, the returned value will be a list of vectors of varying length.
-#' @param file A file or URL of the complete HGNC data set (in TSV format), as used by [import_hgnc_dataset()].
+#' @param from The HGNC identifier to convert from, must be a column name in the
+#'   HGNC dataset.
+#' @param to The HGNC identifier to convert to, must be a column name in the
+#'   HGNC dataset.
+#' @param one_to_many A boolean value indicating whether cases where the 'from'
+#'   identifier maps to multiple 'to' values should be returned. If set to
+#'   `FALSE` (the default), such one-to-many cases will yield `NA`. If set to
+#'   `TRUE`, the returned value will be a list of vectors of varying length.
+#' @param file A file or URL of the complete HGNC data set (in TSV format), as
+#'   used by [import_hgnc_dataset()].
 #' @return A list or vector of converted values
 #' @examples
 #' \dontrun{

@@ -15,14 +15,19 @@ hgnc_convert(
 \arguments{
 \item{x}{A vector of values to convert from}
 
-\item{from}{The HGNC identifier to convert from, must be a column name in the HGNC dataset}
+\item{from}{The HGNC identifier to convert from, must be a column name in the
+HGNC dataset.}
 
-\item{to}{The HGNC identifier to convert to, must be a column name in the HGNC dataset}
+\item{to}{The HGNC identifier to convert to, must be a column name in the
+HGNC dataset.}
 
-\item{one_to_many}{A boolean value indicating whether cases where the 'from' identifier maps to multiple 'to' values should be returned.
-If set to \code{FASLE} (the default), such one-to-many cases will yield NA. If set to \code{TRUE}, the returned value will be a list of vectors of varying length.}
+\item{one_to_many}{A boolean value indicating whether cases where the 'from'
+identifier maps to multiple 'to' values should be returned. If set to
+\code{FALSE} (the default), such one-to-many cases will yield \code{NA}. If set to
+\code{TRUE}, the returned value will be a list of vectors of varying length.}
 
-\item{file}{A file or URL of the complete HGNC data set (in TSV format), as used by \code{\link[=import_hgnc_dataset]{import_hgnc_dataset()}}.}
+\item{file}{A file or URL of the complete HGNC data set (in TSV format), as
+used by \code{\link[=import_hgnc_dataset]{import_hgnc_dataset()}}.}
 }
 \value{
 A list or vector of converted values

@@ -41,7 +41,8 @@ Imports:
     rlang,
     rvest,
     stringr,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
     spelling
 Language: en-US

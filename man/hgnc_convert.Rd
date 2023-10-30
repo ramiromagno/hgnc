@@ -8,7 +8,7 @@ hgnc_convert(
   x,
   from = "hgnc_id",
   to = "symbol",
-  drop_non_unique = TRUE,
+  one_to_many = FALSE,
   file = get_hgnc_file()
 )
 }
@@ -19,7 +19,8 @@ hgnc_convert(
 
 \item{to}{The HGNC identifier to convert to, must be a column name in the HGNC dataset}
 
-\item{drop_non_unique}{A boolean value indicating whether non-uniquely mapped values of from should be dropped. If set to \code{FALSE} and there are non-unique mappings, the returned value will be a list.}
+\item{one_to_many}{A boolean value indicating whether cases where the 'from' identifier maps to multiple 'to' values should be returned.
+If set to \code{FASLE} (the default), such one-to-many cases will yield NA. If set to \code{TRUE}, the returned value will be a list of vectors of varying length.}
 
 \item{file}{A file or URL of the complete HGNC data set (in TSV format), as used by \code{\link[=import_hgnc_dataset]{import_hgnc_dataset()}}.}
 }

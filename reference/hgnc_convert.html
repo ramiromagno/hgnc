@@ -55,7 +55,7 @@
 <span>  <span class="va">x</span>,</span>
 <span>  from <span class="op">=</span> <span class="st">"hgnc_id"</span>,</span>
 <span>  to <span class="op">=</span> <span class="st">"symbol"</span>,</span>
-<span>  drop_non_unique <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  one_to_many <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="get_hgnc_file.html">get_hgnc_file</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -74,8 +74,9 @@
 <dd><p>The HGNC identifier to convert to, must be a column name in the HGNC dataset</p></dd>
 
 
-<dt>drop_non_unique</dt>
-<dd><p>A boolean value indicating whether non-uniquely mapped values of from should be dropped. If set to <code>FALSE</code> and there are non-unique mappings, the returned value will be a list.</p></dd>
+<dt>one_to_many</dt>
+<dd><p>A boolean value indicating whether cases where the 'from' identifier maps to multiple 'to' values should be returned.
+If set to <code>FASLE</code> (the default), such one-to-many cases will yield NA. If set to <code>TRUE</code>, the returned value will be a list of vectors of varying length.</p></dd>
 
 
 <dt>file</dt>

@@ -314,7 +314,7 @@
 </h2>
 <p>You could go to <a href="https://www.genenames.org" class="external-link">www.genenames.org</a> and download the files yourself. So why the need for this R package?</p>
 <p><a href="https://github.com/ramiromagno/hgnc" class="external-link">hgnc</a> really is just a convenience package. The main advantage is that the function <code><a href="reference/import_hgnc_dataset.html">import_hgnc_dataset()</a></code> reads in the data in tabular format with all the columns with the appropriate type (so you don’t have to specify it yourself). As an extra step, those variables that contain multiple values are encoded as list-columns.</p>
-<p>Remember that list-columns can be expanded with <code>tidyr::unnest()</code>. E.g., <code>alias_symbol</code> is a list-column containing multiple alternative aliases to the standard <code>symbol</code>:</p>
+<p>Remember that list-columns can be expanded with <code><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">tidyr::unnest()</a></code>. E.g., <code>alias_symbol</code> is a list-column containing multiple alternative aliases to the standard <code>symbol</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">'TP53'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -327,7 +327,7 @@
 <span><span class="va">hgnc_dataset</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">'TP53'</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'symbol'</span>, <span class="st">'alias_symbol'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu">unnest</span><span class="op">(</span>cols <span class="op">=</span> <span class="st">'alias_symbol'</span><span class="op">)</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="st">'alias_symbol'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   symbol alias_symbol</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;       </span></span>

@@ -55,7 +55,7 @@
 <span>  <span class="va">.data</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"hgnc_id"</span>,</span>
 <span>  column <span class="op">=</span> <span class="st">"symbol"</span>,</span>
-<span>  drop_non_unique <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  one_to_many <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="get_hgnc_file.html">get_hgnc_file</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -74,8 +74,9 @@
 <dd><p>The column to add to the data frame from the HGNC dataset</p></dd>
 
 
-<dt>drop_non_unique</dt>
-<dd><p>A boolean value indicating whether non-unique rows should be dropped. If set to <code>FALSE</code> and the 'by' column is not unique, the added column will be a list-column.</p></dd>
+<dt>one_to_many</dt>
+<dd><p>A boolean value indicating whether cases where the 'by' column maps to multiple valuesof the selected column should be returned.
+If set to <code>FASLE</code> (the default), such one-to-many cases will yield NA. If set to <code>TRUE</code>, the returned column will be a list of vectors of varying length.</p></dd>
 
 
 <dt>file</dt>
